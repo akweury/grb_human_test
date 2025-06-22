@@ -35,30 +35,26 @@ h1 {
 #image-grid {
   margin-top: 50px;
   margin-bottom: 30px;
-  width: 90vw;
-  max-width: 90vw;
+  width: 90%;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
 
-
 .image-row {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;   /* Center images horizontally */
   gap: 10px;
   margin-bottom: 20px;
   flex-wrap: nowrap;
-  width: 100%;
-  max-width: 100%;
+  width: 90%;
+  max-width: 90%;
   overflow-x: auto;
   overflow-y: visible;
-  /* Add this line */
   overflow: visible;
-  /* This ensures both axes are visible if needed */
   padding-bottom: 8px;
 }
-
 /* 🟩 Positive and 🟥 Negative Training Images */
 .thumb {
   width: calc(30vw - 40px);
@@ -69,13 +65,13 @@ h1 {
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   flex: 1 1 auto;
-  transition: transform 0.12s cubic-bezier(.4, 2, .2, 1);
+  transition: transform 0.10s cubic-bezier(.4, 2, .2, 1);
   z-index: 1;
   position: relative;
 }
 
 .thumb:hover {
-  transform: scale(2.2);
+  transform: scale(1.5);
   z-index: 10;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
@@ -97,7 +93,7 @@ h1 {
 /* ✨ Test image interaction */
 .thumb,
 .selectable-image {
-  transition: transform 0.12s cubic-bezier(.4, .2, .2, 1), box-shadow 0.12s cubic-bezier(.4, .2, .2, 1);
+  transition: transform 0.07s cubic-bezier(.4, .2, .2, 1), box-shadow 0.01s cubic-bezier(.4, .2, .2, 1);
   z-index: 1;
   position: relative;
 
@@ -107,7 +103,7 @@ h1 {
 }
 
 .selectable-image:hover {
-  transform: scale(2.2);
+  transform: scale(1.5);
   z-index: 10;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
@@ -145,4 +141,65 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   white-space: pre-wrap;
+}
+
+/* Result Table Wrapper */
+.result-table-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 32px auto 24px auto;
+  overflow-x: auto;
+  background: none;
+  border-radius: 8px;
+  /* Ensure the wrapper does not exceed the viewport */
+  box-sizing: border-box;
+}
+
+/* Result Table Styling */
+.result-table {
+  width: 100%;
+  min-width: 600px;
+  max-width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 1em;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0;
+  table-layout: auto;
+  /* Prevent table from exceeding its container */
+  box-sizing: border-box;
+  display: block;
+  overflow-x: auto;
+}
+
+.result-table th, .result-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.result-table th {
+  background: #e3f2fd;
+  color: #1565c0;
+  font-weight: bold;
+}
+
+.result-table tr:last-child td {
+  border-bottom: none;
+}
+
+.result-table tr:hover {
+  background: #f1f8ff;
+}
+
+.result-table td.correct {
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.result-table td.incorrect {
+  color: #d32f2f;
+  font-weight: bold;
 }

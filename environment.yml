@@ -1,0 +1,8 @@
+name: grb_env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - matplotlib
+  - scikit-learn
+  # add any other packages you need

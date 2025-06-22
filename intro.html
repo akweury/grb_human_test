@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestalt Human Evaluation – Welcome</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .intro-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f9f9f9;
+    }
+    .intro-title {
+      font-size: 2em;
+      margin-bottom: 24px;
+      font-weight: bold;
+    }
+    .intro-buttons {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .intro-btn {
+      padding: 16px 32px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      border: none;
+      background: #0077ff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .intro-btn:hover {
+      background: #005fcc;
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-container">
+    <div class="intro-title">Welcome to the Gestalt Benchmark Human Evaluation</div>
+    <div>Choose an option to proceed:</div>
+    <div class="intro-buttons">
+      <button class="intro-btn" onclick="window.location.href='index.html'">Start Task</button>
+      <button class="intro-btn" onclick="window.location.href='demo.html'">View Demo</button>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,75 @@
+import os
+import json
+import matplotlib.pyplot as plt
+from sklearn.metrics import f1_score
+
+def analyze_results(folder):
+    all_acc = []
+    all_f1 = []
+    details = []
+
+    for fname in os.listdir(folder):
+        if fname.endswith('.json'):
+            path = os.path.join(folder, fname)
+            with open(path, 'r') as f:
+                try:
+                    data = json.load(f)
+                except Exception as e:
+                    print(f"Error loading {fname}: {e}")
+                    continue
+            y_true = []
+            y_pred = []
+            total = 0
+            correct = 0
+            for task in data:
+                for r in task.get('result', []):
+                    total += 1
+                    y_true.append(bool(r.get('isPositive')))
+                    y_pred.append(bool(r.get('selected')))
+                    if r.get('correct'):
+                        correct += 1
+            acc = correct / total if total else 0
+            f1 = f1_score(y_true, y_pred) if total else 0
+            all_acc.append(acc)
+            all_f1.append(f1)
+            details.append({
+                'file': fname,
+                'accuracy': acc,
+                'f1': f1,
+                'total': total,
+                'correct': correct
+            })
+    return all_acc, all_f1, details
+
+if __name__ == "__main__":
+    folder = "./data"
+    all_acc, all_f1, details = analyze_results(folder)
+    if all_acc:
+        print(f"Average Accuracy: {sum(all_acc)/len(all_acc):.3f}")
+    else:
+        print("Average Accuracy: N/A")
+    if all_f1:
+        print(f"Average F1 Score: {sum(all_f1)/len(all_f1):.3f}")
+    else:
+        print("Average F1 Score: N/A")
+
+    # Draw bar chart
+    files = [d['file'] for d in details]
+    accs = [d['accuracy'] for d in details]
+    f1s = [d['f1'] for d in details]
+
+    x = range(len(files))
+    width = 0.35
+
+    plt.figure(figsize=(max(10, len(files)*0.7), 6))
+    plt.bar([i - width/2 for i in x], accs, width=width, label='Accuracy', color='#42a5f5')
+    plt.bar([i + width/2 for i in x], f1s, width=width, label='F1 Score', color='#66bb6a')
+    plt.xticks(x, files, rotation=45, ha='right')
+    plt.xlabel('File')
+    plt.ylabel('Score')
+    plt.title('Performance per Submission')
+    plt.ylim(0, 1.05)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig("grb_performance_chart.png")
+    plt.close()

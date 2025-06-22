@@ -27,9 +27,15 @@ downloadBtn.style.display = "none";
 downloadBtn.onclick = () => {
   const blob = new Blob([JSON.stringify(taskResults, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
+
+  // Generate filename with current date and time
+  const now = new Date();
+  const pad = n => n.toString().padStart(2, '0');
+  const filename = `grb_results_${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}.json`;
+
   const a = document.createElement("a");
   a.href = url;
-  a.download = "grb_results.json";
+  a.download = filename;
   a.click();
 };
 document.body.insertBefore(downloadBtn, resultDiv);
@@ -37,6 +43,13 @@ document.body.insertBefore(downloadBtn, resultDiv);
 function updateTaskCounter(index, total) {
   if (taskCounter) {
     taskCounter.textContent = `Task ${index + 1} / ${total}`;
+  }
+}
+
+function updateTaskIdDisplay(taskId) {
+  const taskIdDiv = document.getElementById("task-id");
+  if (taskIdDiv) {
+    taskIdDiv.textContent = `Task ID: ${taskId}`;
   }
 }
 
@@ -93,6 +106,12 @@ function generateImageSet(trainName, testName) {
 }
 
 function displayImages({ trainPos, trainNeg, testImages }) {
+    // Show the task ID at the top using the first trainPos image as the task ID (or use another identifier as needed)
+  if (trainPos && trainPos.length > 0) {
+    updateTaskIdDisplay(trainPos[0].id.split('_train_pos_')[0]);
+  }
+
+
   grid.innerHTML = "";
   selectedImages.clear();
 
@@ -197,7 +216,15 @@ submitBtn.onclick = () => {
     const total = taskResults.flatMap(r => r.result);
     const correct = total.filter(r => r.correct).length;
 
-    const resultSummary = `<p>You completed ${TASK_COUNT} tasks.<br>Total correct: <strong>${correct}</strong> / ${total.length}</p>`;
+    const resultSummary = `
+      <p>You completed ${TASK_COUNT} tasks.<br>
+      Total correct: <strong>${correct}</strong> / ${total.length}</p>
+      <p>
+        <b>To submit your results:</b><br>
+        1. Click <b>Download Results</b> to save your answers as a JSON file.<br>
+        2. Attach the downloaded file to an email and send it to <a href="mailto:jingyuan.sha@tu-darmstadt.de">jingyuan.sha@tu-darmstadt.de</a>.
+      </p>
+    `;
     const resultTable = createResultTable(taskResults);
     resultDiv.innerHTML = resultSummary;
     resultDiv.appendChild(resultTable);
@@ -210,6 +237,9 @@ submitBtn.onclick = () => {
 
   startTime = Date.now();
   displayImages(selectedTasks[currentTaskIndex].imageSet);
+  updateTaskCounter(currentTaskIndex, TASK_COUNT);
+  updateTaskIdDisplay(selectedTasks[currentTaskIndex].test); // Show the new task ID
+
 };
 
 (async function init() {
@@ -218,5 +248,6 @@ submitBtn.onclick = () => {
   selectedTasks = sampleTasksFrom(trainFolders, testFolders, TASK_COUNT);
   startTime = Date.now();
   displayImages(selectedTasks[0].imageSet);
+  updateTaskIdDisplay(selectedTasks[0].test);
   updateTaskCounter(0, TASK_COUNT);
 })();

@@ -1,0 +1,472 @@
+[
+  {
+    "task": "024_non_overlap_big_triangle_shape_color_2_l",
+    "result": [
+      {
+        "id": "024_non_overlap_big_triangle_shape_color_2_l_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "8.00"
+      },
+      {
+        "id": "024_non_overlap_big_triangle_shape_color_2_l_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "8.00"
+      },
+      {
+        "id": "024_non_overlap_big_triangle_shape_color_2_l_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "8.00"
+      },
+      {
+        "id": "024_non_overlap_big_triangle_shape_color_2_l_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "8.00"
+      },
+      {
+        "id": "024_non_overlap_big_triangle_shape_color_2_l_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "8.00"
+      },
+      {
+        "id": "024_non_overlap_big_triangle_shape_color_2_l_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "8.00"
+      }
+    ]
+  },
+  {
+    "task": "032_non_overlap_big_triangle_color_size_1_m",
+    "result": [
+      {
+        "id": "032_non_overlap_big_triangle_color_size_1_m_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.63"
+      },
+      {
+        "id": "032_non_overlap_big_triangle_color_size_1_m_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.63"
+      },
+      {
+        "id": "032_non_overlap_big_triangle_color_size_1_m_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.63"
+      },
+      {
+        "id": "032_non_overlap_big_triangle_color_size_1_m_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.63"
+      },
+      {
+        "id": "032_non_overlap_big_triangle_color_size_1_m_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.63"
+      },
+      {
+        "id": "032_non_overlap_big_triangle_color_size_1_m_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.63"
+      }
+    ]
+  },
+  {
+    "task": "026_non_overlap_big_triangle_shape_size_1_m",
+    "result": [
+      {
+        "id": "026_non_overlap_big_triangle_shape_size_1_m_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "026_non_overlap_big_triangle_shape_size_1_m_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "026_non_overlap_big_triangle_shape_size_1_m_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "026_non_overlap_big_triangle_shape_size_1_m_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "026_non_overlap_big_triangle_shape_size_1_m_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "026_non_overlap_big_triangle_shape_size_1_m_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      }
+    ]
+  },
+  {
+    "task": "013_non_overlap_big_triangle_size_1_s",
+    "result": [
+      {
+        "id": "013_non_overlap_big_triangle_size_1_s_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.45"
+      },
+      {
+        "id": "013_non_overlap_big_triangle_size_1_s_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.45"
+      },
+      {
+        "id": "013_non_overlap_big_triangle_size_1_s_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.45"
+      },
+      {
+        "id": "013_non_overlap_big_triangle_size_1_s_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.45"
+      },
+      {
+        "id": "013_non_overlap_big_triangle_size_1_s_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.45"
+      },
+      {
+        "id": "013_non_overlap_big_triangle_size_1_s_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.45"
+      }
+    ]
+  },
+  {
+    "task": "028_non_overlap_big_triangle_shape_size_2_s",
+    "result": [
+      {
+        "id": "028_non_overlap_big_triangle_shape_size_2_s_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "028_non_overlap_big_triangle_shape_size_2_s_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "028_non_overlap_big_triangle_shape_size_2_s_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "028_non_overlap_big_triangle_shape_size_2_s_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "028_non_overlap_big_triangle_shape_size_2_s_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "028_non_overlap_big_triangle_shape_size_2_s_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      }
+    ]
+  },
+  {
+    "task": "012_non_overlap_big_triangle_color_2_l",
+    "result": [
+      {
+        "id": "012_non_overlap_big_triangle_color_2_l_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.53"
+      },
+      {
+        "id": "012_non_overlap_big_triangle_color_2_l_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.53"
+      },
+      {
+        "id": "012_non_overlap_big_triangle_color_2_l_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.53"
+      },
+      {
+        "id": "012_non_overlap_big_triangle_color_2_l_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.53"
+      },
+      {
+        "id": "012_non_overlap_big_triangle_color_2_l_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.53"
+      },
+      {
+        "id": "012_non_overlap_big_triangle_color_2_l_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.53"
+      }
+    ]
+  },
+  {
+    "task": "143_non_overlap_feature_square_size_1",
+    "result": [
+      {
+        "id": "143_non_overlap_feature_square_size_1_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.47"
+      },
+      {
+        "id": "143_non_overlap_feature_square_size_1_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.47"
+      },
+      {
+        "id": "143_non_overlap_feature_square_size_1_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.47"
+      },
+      {
+        "id": "143_non_overlap_feature_square_size_1_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.47"
+      },
+      {
+        "id": "143_non_overlap_feature_square_size_1_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.47"
+      },
+      {
+        "id": "143_non_overlap_feature_square_size_1_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.47"
+      }
+    ]
+  },
+  {
+    "task": "078_non_overlap_big_square_color_size_2_l",
+    "result": [
+      {
+        "id": "078_non_overlap_big_square_color_size_2_l_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "078_non_overlap_big_square_color_size_2_l_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "078_non_overlap_big_square_color_size_2_l_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "078_non_overlap_big_square_color_size_2_l_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "078_non_overlap_big_square_color_size_2_l_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      },
+      {
+        "id": "078_non_overlap_big_square_color_size_2_l_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.50"
+      }
+    ]
+  },
+  {
+    "task": "145_non_overlap_feature_square_size_3",
+    "result": [
+      {
+        "id": "145_non_overlap_feature_square_size_3_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.52"
+      },
+      {
+        "id": "145_non_overlap_feature_square_size_3_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.52"
+      },
+      {
+        "id": "145_non_overlap_feature_square_size_3_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.52"
+      },
+      {
+        "id": "145_non_overlap_feature_square_size_3_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.52"
+      },
+      {
+        "id": "145_non_overlap_feature_square_size_3_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.52"
+      },
+      {
+        "id": "145_non_overlap_feature_square_size_3_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.52"
+      }
+    ]
+  },
+  {
+    "task": "156_non_overlap_feature_circle_shape_3",
+    "result": [
+      {
+        "id": "156_non_overlap_feature_circle_shape_3_test_3",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.55"
+      },
+      {
+        "id": "156_non_overlap_feature_circle_shape_3_test_4",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.55"
+      },
+      {
+        "id": "156_non_overlap_feature_circle_shape_3_test_0",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.55"
+      },
+      {
+        "id": "156_non_overlap_feature_circle_shape_3_test_1",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.55"
+      },
+      {
+        "id": "156_non_overlap_feature_circle_shape_3_test_5",
+        "selected": false,
+        "isPositive": false,
+        "correct": true,
+        "timeTaken": "0.55"
+      },
+      {
+        "id": "156_non_overlap_feature_circle_shape_3_test_2",
+        "selected": false,
+        "isPositive": true,
+        "correct": false,
+        "timeTaken": "0.55"
+      }
+    ]
+  }
+]
