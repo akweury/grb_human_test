@@ -6,27 +6,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestalt Human Evaluation – Welcome</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
   <style>
+    body {
+      background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: #222;
+    }
+
     .intro-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      background: #f9f9f9;
+      min-height: 90vh;
+      padding-bottom: 0;
+      position: relative;
     }
 
     .intro-title {
-      font-size: 2em;
-      margin-bottom: 24px;
-      font-weight: bold;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2.7em;
+      margin-bottom: 18px;
+      font-weight: 700;
+      color: #1976d2;
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 16px #e3f2fd;
+      text-align: center;
+    }
+
+    .intro-subtitle {
+      font-size: 1.25em;
+      color: #444;
+      margin-bottom: 32px;
+      text-align: center;
+      max-width: 600px;
+      font-weight: 400;
     }
 
     .intro-buttons {
       display: flex;
-      gap: 24px;
-      margin-top: 32px;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      margin-top: 0;
+      margin-bottom: 32px;
+    }
+
+    .demo-btn {
+      background: #ff9800;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      padding: 20px 40px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 16px #ff980055, 0 1.5px 0 #f57c00;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .demo-btn:hover {
+      background: #f57c00;
+      box-shadow: 0 6px 24px #ff980077;
+    }
+
+    .principle-btn-row {
+      display: flex;
+      gap: 20px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .intro-btn {
@@ -37,38 +90,83 @@
       background: #0077ff;
       color: #fff;
       cursor: pointer;
-      transition: background 0.2s;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 500;
+      box-shadow: 0 2px 8px #0077ff22;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
     }
 
     .intro-btn:hover {
       background: #005fcc;
+      box-shadow: 0 4px 16px #0077ff44;
+      transform: translateY(-2px) scale(1.04);
     }
 
-    .demo-btn {
-      background: #ff9800;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      transition: background 0.2s;
+    .citation-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 48px auto 18px auto;
+      font-size: 1em;
+      color: #444;
+      background: #f9f9f9cc;
+      border-radius: 12px;
+      padding: 28px 24px 18px 24px;
+      box-shadow: 0 2px 18px #b3c6e3;
+      text-align: center;
     }
 
-    .demo-btn:hover {
-      background: #f57c00;
+    .citation-container h3 {
+      margin-top: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      color: #1976d2;
+      letter-spacing: 0.02em;
+    }
+
+    .citation-container pre {
+      background: #f4f4f4;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 16px;
+      font-size: 0.97em;
+      overflow-x: auto;
+      text-align: left;
+    }
+
+    @media (max-width: 700px) {
+      .intro-title {
+        font-size: 1.5em;
+      }
+
+      .citation-container {
+        padding: 16px 4vw;
+      }
+
+      .principle-btn-row {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .intro-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="intro-container">
-    <div class="intro-title">Welcome to the Gestalt Benchmark Human Evaluation</div>
-    <div>Choose an option to proceed:</div>
-    <div class="intro-buttons" style="flex-direction: column; align-items: center;">
-      <button class="demo-btn"
-        style="margin-bottom: 28px; font-size: 1.2em; padding: 20px 40px; box-shadow: 0 4px 16px #ff980055, 0 1.5px 0 #f57c00;"
-        onclick="window.location.href='demo.html'">
+    <div class="intro-title">Gestalt Benchmark Human Evaluation</div>
+    <div class="intro-subtitle">
+      Welcome! This portal lets you participate in our study on Gestalt principles in visual perception.<br>
+      Please try the demo first, then select a principle to start the test. Your contribution is valuable for our
+      research!
+    </div>
+    <div class="intro-buttons">
+      <button class="demo-btn" onclick="window.location.href='demo.html'">
         👉 View Demo (Recommended First)
       </button>
-      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+      <div class="principle-btn-row">
         <button class="intro-btn" onclick="window.location.href='task.html?principle=closure'">Closure Tasks
         </button>
         <button class="intro-btn" onclick="window.location.href='task.html?principle=proximity'">Proximity Tasks
@@ -80,6 +178,24 @@
         <button class="intro-btn" onclick="window.location.href='task.html?principle=symmetry'">Symmetry Tasks
         </button>
       </div>
+    </div>
+    <div class="citation-container">
+      <h3>Citation</h3>
+      <div>
+        Jingyuan Sha, Hikaru Shindo, Kristian Kersting, Devendra Singh Dhami (2025):<br>
+        <b>Gestalt Vision: A Dataset for Evaluating Gestalt Principles in Visual Perception.</b><br>
+        In Proceedings of the 19th International Conference on Neurosymbolic Learning and Reasoning (NeSy).<br>
+        [<a href="NeSy_2025_GRB.pdf" target="_blank">PDF</a>]
+      </div>
+      <pre>
+@inproceedings{sha2025gestalt,
+  title     = {Gestalt Vision: A Dataset for Evaluating Gestalt Principles in Visual Perception},
+  author    = {Jingyuan Sha and Hikaru Shindo and Kristian Kersting and Devendra Singh Dhami},
+  booktitle = {Proceedings of the 19th International Conference on Neurosymbolic Learning and Reasoning (NeSy)},
+  year      = {2025},
+  note      = {\url{https://github.com/akweury/grb_human_test/NeSy_2025_GRB.pdf}}
+}
+      </pre>
     </div>
   </div>
 </body>
