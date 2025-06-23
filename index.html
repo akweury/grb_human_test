@@ -1,62 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gestalt Human Evaluation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestalt Human Evaluation – Welcome</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Google Fonts for a cool title font -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    .corner-title {
-      position: fixed;
-      bottom: 18px;
-      left: 24px;
-      font-size: 2.2em;
-      color: #5c6bc0;
-      opacity: 0.18;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-shadow: 0 2px 16px #b3b3b3, 0 1px 0 #fff;
-      user-select: none;
-      pointer-events: none;
-      z-index: 10;
-      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
-      line-height: 1.1;
-      transition: opacity 0.3s;
+    .intro-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f9f9f9;
     }
-    #principle-title {
+
+    .intro-title {
       font-size: 2em;
-      font-weight: bold;
       margin-bottom: 24px;
-      color: #1976d2;
-      letter-spacing: 0.03em;
-      text-shadow: 0 2px 12px #e3f2fd;
-      text-align: center;
-      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
     }
-    @media (max-width: 600px) {
-      .corner-title {
-        font-size: 1.1em;
-        left: 10px;
-        bottom: 10px;
-        top: unset;
-      }
-      #principle-title {
-        font-size: 1.3em;
-      }
+
+    .intro-buttons {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .intro-btn {
+      padding: 16px 32px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      border: none;
+      background: #0077ff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .intro-btn:hover {
+      background: #005fcc;
+    }
+
+    .demo-btn {
+      background: #ff9800;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .demo-btn:hover {
+      background: #f57c00;
     }
   </style>
 </head>
+
 <body>
-  <div class="corner-title">Gestalt Benchmark – Human Evaluation</div>
-  <div id="principle-title"></div>
-  <div id="progress-bar-container">
-    <div id="progress-bar"></div>
+  <div class="intro-container">
+    <div class="intro-title">Welcome to the Gestalt Benchmark Human Evaluation</div>
+    <div>Choose an option to proceed:</div>
+    <div class="intro-buttons" style="flex-direction: column; align-items: center;">
+      <button class="demo-btn"
+        style="margin-bottom: 28px; font-size: 1.2em; padding: 20px 40px; box-shadow: 0 4px 16px #ff980055, 0 1.5px 0 #f57c00;"
+        onclick="window.location.href='demo.html'">
+        👉 View Demo (Recommended First)
+      </button>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <button class="intro-btn" onclick="window.location.href='task.html?principle=closure'">Closure Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='task.html?principle=proximity'">Proximity Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='task.html?principle=similarity'">Similarity Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='task.html?principle=continuity'">Continuity Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='task.html?principle=symmetry'">Symmetry Tasks
+        </button>
+      </div>
+    </div>
   </div>
-  <div id="image-grid"></div>
-  <button id="submit-button">Next Task</button>
-  <div id="result"></div>
-  <script src="script.js"></script>
 </body>
+
 </html>
