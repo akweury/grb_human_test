@@ -5,17 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestalt Human Evaluation</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts for a cool title font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .corner-title {
+      position: fixed;
+      bottom: 18px;
+      left: 24px;
+      font-size: 2.2em;
+      color: #5c6bc0;
+      opacity: 0.18;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-shadow: 0 2px 16px #b3b3b3, 0 1px 0 #fff;
+      user-select: none;
+      pointer-events: none;
+      z-index: 10;
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      line-height: 1.1;
+      transition: opacity 0.3s;
+    }
+    #principle-title {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 24px;
+      color: #1976d2;
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 12px #e3f2fd;
+      text-align: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    @media (max-width: 600px) {
+      .corner-title {
+        font-size: 1.1em;
+        left: 10px;
+        bottom: 10px;
+        top: unset;
+      }
+      #principle-title {
+        font-size: 1.3em;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Gestalt Benchmark – Human Evaluation</h1>
-<div id="task-id" style="font-size: 1.2em; font-weight: bold; margin-bottom: 16px;"></div>
-
+  <div class="corner-title">Gestalt Benchmark – Human Evaluation</div>
+  <div id="principle-title"></div>
   <div id="progress-bar-container">
     <div id="progress-bar"></div>
   </div>
-
   <div id="image-grid"></div>
-
   <button id="submit-button">Next Task</button>
   <div id="result"></div>
   <script src="script.js"></script>

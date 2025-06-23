@@ -1,8 +1,34 @@
 // script.js
 
-const BASE_URL = "https://huggingface.co/datasets/akweury/ELVIS/resolve/main/closure";
-const TRAIN_API = "https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/closure/train";
-const TEST_API = "https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/closure/test";
+// Get principle from URL, default to 'closure'
+function getPrinciple() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('principle') || 'closure';
+}
+
+const PRINCIPLE = getPrinciple();
+
+// Map principle to display name (capitalize)
+const PRINCIPLE_DISPLAY = {
+  closure: "Closure",
+  proximity: "Proximity",
+  similarity: "Similarity",
+  continuity: "Continuity",
+  symmetry: "Symmetry"
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const titleDiv = document.getElementById("principle-title");
+  if (titleDiv) {
+    titleDiv.textContent = `Principle: ${PRINCIPLE_DISPLAY[PRINCIPLE] || PRINCIPLE}`;
+  }
+});
+
+const BASE_URL = `https://huggingface.co/datasets/akweury/ELVIS/resolve/main/${PRINCIPLE}`;
+const TRAIN_API = `https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/${PRINCIPLE}/train`;
+const TEST_API = `https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/${PRINCIPLE}/test`;
+
+
 const TASK_COUNT = 10;
 
 let trainFolders = [];
@@ -12,6 +38,9 @@ let selectedImages = new Set();
 let taskResults = [];
 let selectedTasks = [];
 let startTime;
+
+// Add this global to store hardness feedback for each task
+let taskHardness = [];
 
 const grid = document.getElementById("image-grid");
 const resultDiv = document.getElementById("result");
@@ -25,13 +54,18 @@ const downloadBtn = document.createElement("button");
 downloadBtn.innerText = "Download Results";
 downloadBtn.style.display = "none";
 downloadBtn.onclick = () => {
-  const blob = new Blob([JSON.stringify(taskResults, null, 2)], { type: 'application/json' });
+  // Save both the principle and the results in the JSON file
+  const output = {
+    principle: PRINCIPLE,
+    results: taskResults
+  };
+  const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
 
   // Generate filename with current date and time
   const now = new Date();
   const pad = n => n.toString().padStart(2, '0');
-  const filename = `grb_results_${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}.json`;
+  const filename = `grb_results_${PRINCIPLE}_${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}.json`;
 
   const a = document.createElement("a");
   a.href = url;
@@ -106,7 +140,7 @@ function generateImageSet(trainName, testName) {
 }
 
 function displayImages({ trainPos, trainNeg, testImages }) {
-    // Show the task ID at the top using the first trainPos image as the task ID (or use another identifier as needed)
+  // Show the task ID at the top using the first trainPos image as the task ID (or use another identifier as needed)
   if (trainPos && trainPos.length > 0) {
     updateTaskIdDisplay(trainPos[0].id.split('_train_pos_')[0]);
   }
@@ -117,6 +151,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
 
   const trainLabel = document.createElement("h3");
   trainLabel.innerText = "Training Images";
+  trainLabel.className = "training-title";
   grid.appendChild(trainLabel);
 
   const trainRow = document.createElement("div");
@@ -159,6 +194,104 @@ function displayImages({ trainPos, trainNeg, testImages }) {
     testRow.appendChild(img);
   });
   grid.appendChild(testRow);
+
+  // Remove old hardness feedback buttons if any
+  const oldHardnessDiv = document.getElementById("hardness-feedback");
+  if (oldHardnessDiv) oldHardnessDiv.remove();
+
+  // Add hardness feedback buttons at the bottom right
+  const hardnessDiv = document.createElement("div");
+  hardnessDiv.id = "hardness-feedback";
+  hardnessDiv.style.position = "fixed";
+  hardnessDiv.style.right = "40px";
+  hardnessDiv.style.bottom = "40px";
+  hardnessDiv.style.zIndex = "2000";
+  hardnessDiv.style.display = "flex";
+  hardnessDiv.style.flexDirection = "column";
+  hardnessDiv.style.alignItems = "flex-end";
+  hardnessDiv.style.gap = "18px";
+
+  // Add instruction text above the buttons
+  const hardnessText = document.createElement("div");
+  hardnessText.innerText = "How did you feel about this task?\nPlease select:";
+  hardnessText.style.fontSize = "1.3em";
+  hardnessText.style.fontWeight = "500";
+  hardnessText.style.color = "#333";
+  hardnessText.style.background = "rgba(255,255,255,0.95)";
+  hardnessText.style.padding = "8px 18px";
+  hardnessText.style.borderRadius = "8px";
+  hardnessText.style.marginBottom = "6px";
+  hardnessText.style.textAlign = "right";
+  hardnessDiv.appendChild(hardnessText);
+
+  const btnRow = document.createElement("div");
+  btnRow.style.display = "flex";
+  btnRow.style.flexDirection = "row";
+  btnRow.style.gap = "32px";
+
+  // Helper to set button styles based on state
+  function setBtnState(btn, type, selected) {
+    btn.style.background = selected ? (type === "easy" ? "#43a047" : "#e53935") : "transparent";
+    btn.style.color = selected ? "#fff" : (type === "easy" ? "#43a047" : "#e53935");
+    btn.style.border = `3px solid ${type === "easy" ? "#43a047" : "#e53935"}`;
+    btn.style.boxShadow = selected ? `0 4px 24px ${type === "easy" ? "#43a04744" : "#e5393544"}` : "none";
+    btn.style.transition = "background 0.2s, color 0.2s, box-shadow 0.2s";
+  }
+
+  // Easy Button
+  const easyBtn = document.createElement("button");
+  easyBtn.innerText = "😊 Easy";
+  easyBtn.style.padding = "24px 48px";
+  easyBtn.style.fontSize = "2em";
+  easyBtn.style.borderRadius = "16px";
+  easyBtn.style.cursor = "pointer";
+  setBtnState(easyBtn, "easy", taskHardness[currentTaskIndex] === "easy");
+
+  // Hard Button
+  const hardBtn = document.createElement("button");
+  hardBtn.innerText = "😮‍💨 Hard";
+  hardBtn.style.padding = "24px 48px";
+  hardBtn.style.fontSize = "2em";
+  hardBtn.style.borderRadius = "16px";
+  hardBtn.style.cursor = "pointer";
+  setBtnState(hardBtn, "hard", taskHardness[currentTaskIndex] === "hard");
+
+  // Button click handlers
+  easyBtn.onclick = () => {
+    taskHardness[currentTaskIndex] = "easy";
+    setBtnState(easyBtn, "easy", true);
+    setBtnState(hardBtn, "hard", false);
+  };
+  hardBtn.onclick = () => {
+    taskHardness[currentTaskIndex] = "hard";
+    setBtnState(easyBtn, "easy", false);
+    setBtnState(hardBtn, "hard", true);
+  };
+
+  // Hover effects
+  easyBtn.onmouseenter = () => {
+    if (taskHardness[currentTaskIndex] !== "easy") {
+      easyBtn.style.background = "#e8f5e9";
+      easyBtn.style.color = "#2e7031";
+    }
+  };
+  easyBtn.onmouseleave = () => {
+    setBtnState(easyBtn, "easy", taskHardness[currentTaskIndex] === "easy");
+  };
+  hardBtn.onmouseenter = () => {
+    if (taskHardness[currentTaskIndex] !== "hard") {
+      hardBtn.style.background = "#ffebee";
+      hardBtn.style.color = "#a02725";
+    }
+  };
+  hardBtn.onmouseleave = () => {
+    setBtnState(hardBtn, "hard", taskHardness[currentTaskIndex] === "hard");
+  };
+
+  btnRow.appendChild(easyBtn);
+  btnRow.appendChild(hardBtn);
+  hardnessDiv.appendChild(btnRow);
+  document.body.appendChild(hardnessDiv);
 }
 
 function createResultTable(allResults) {
@@ -203,9 +336,17 @@ submitBtn.onclick = () => {
 
   const currentSet = selectedTasks[currentTaskIndex];
   const result = evaluateTask(currentSet.imageSet.testImages, duration);
-  taskResults.push({ task: currentSet.test, result });
+
+  // Save hardness feedback for this task
+  const hardness = taskHardness[currentTaskIndex] || null;
+
+  taskResults.push({ task: currentSet.test, result, hardness });
 
   currentTaskIndex++;
+
+  // Remove hardness feedback buttons for next task or result page
+  const oldHardnessDiv = document.getElementById("hardness-feedback");
+  if (oldHardnessDiv) oldHardnessDiv.remove();
 
   if (currentTaskIndex === selectedTasks.length) {
     progressBar.style.width = `100%`;
@@ -215,19 +356,94 @@ submitBtn.onclick = () => {
 
     const total = taskResults.flatMap(r => r.result);
     const correct = total.filter(r => r.correct).length;
+    const percent = total.length > 0 ? (correct / total.length) : 0;
+
+    // Friendly, supportive feedback
+    let feedback = "";
+    if (percent >= 0.85) {
+      feedback = "Great job! Your careful work really helps our research.";
+    } else if (percent >= 0.7) {
+      feedback = "Nice effort! Your answers are valuable for our study.";
+    } else if (percent >= 0.5) {
+      feedback = "These were tricky tasks—thanks for your thoughtful participation!";
+    } else {
+      feedback = "Those were challenging tasks—your contribution is truly appreciated!";
+    }
 
     const resultSummary = `
-      <p>You completed ${TASK_COUNT} tasks.<br>
-      Total correct: <strong>${correct}</strong> / ${total.length}</p>
-      <p>
-        <b>To submit your results:</b><br>
-        1. Click <b>Download Results</b> to save your answers as a JSON file.<br>
-        2. Attach the downloaded file to an email and send it to <a href="mailto:jingyuan.sha@tu-darmstadt.de">jingyuan.sha@tu-darmstadt.de</a>.
-      </p>
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 45vh;
+        width: 100%;
+      ">
+        <div style="
+          font-size: 3.2em;
+          font-weight: bold;
+          color: #1976d2;
+          margin-bottom: 18px;
+          text-align: center;
+          line-height: 1.2;
+        ">
+          Your Performance<br>
+          <span style="font-size:1.2em;">${correct} / ${total.length} correct</span>
+        </div>
+        <div style="font-size: 1.5em; margin-bottom: 18px; color: #388e3c; text-align: center;">
+          ${feedback}
+        </div>
+        <div style="font-size: 1.3em; margin-bottom: 18px; text-align: center;">
+          You completed ${TASK_COUNT} tasks.
+        </div>
+        <div style="font-size: 1.1em; margin-top: 10px; text-align: center;">
+          <b>To submit your results:</b><br>
+          1. Click <b>Download Results</b> to save your answers as a JSON file.<br>
+          2. Attach the downloaded file to an email and send it to <a href="mailto:jingyuan.sha@tu-darmstadt.de">jingyuan.sha@tu-darmstadt.de</a>.
+        </div>
+        <div style="display: flex; gap: 24px; margin-top: 32px;">
+          <button id="download-results-btn" style="
+            padding: 14px 32px;
+            font-size: 1.1em;
+            background: #0077ff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+          ">Download Results</button>
+          <button id="more-tests-btn" style="
+            padding: 14px 32px;
+            font-size: 1.1em;
+            background: #0077ff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+          ">Do More Tests</button>
+        </div>
+      </div>
     `;
     const resultTable = createResultTable(taskResults);
+    resultDiv.style.display = "block";
     resultDiv.innerHTML = resultSummary;
     resultDiv.appendChild(resultTable);
+
+    // Hide the original downloadBtn
+    downloadBtn.style.display = "none";
+
+    // Add event listeners for the new buttons
+    const downloadResultsBtn = document.getElementById("download-results-btn");
+    if (downloadResultsBtn) {
+      downloadResultsBtn.onclick = downloadBtn.onclick;
+    }
+    const moreTestsBtn = document.getElementById("more-tests-btn");
+    if (moreTestsBtn) {
+      moreTestsBtn.onclick = () => {
+        window.location.href = "intro.html";
+      };
+    }
     return;
   }
 

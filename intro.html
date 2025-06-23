@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestalt Human Evaluation – Welcome</title>
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -14,16 +15,20 @@
       min-height: 100vh;
       background: #f9f9f9;
     }
+
     .intro-title {
       font-size: 2em;
       margin-bottom: 24px;
       font-weight: bold;
     }
+
     .intro-buttons {
       display: flex;
       gap: 24px;
       margin-top: 32px;
+      flex-wrap: wrap;
     }
+
     .intro-btn {
       padding: 16px 32px;
       font-size: 1.1em;
@@ -34,20 +39,49 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
     .intro-btn:hover {
       background: #005fcc;
     }
+
+    .demo-btn {
+      background: #ff9800;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .demo-btn:hover {
+      background: #f57c00;
+    }
   </style>
 </head>
+
 <body>
   <div class="intro-container">
     <div class="intro-title">Welcome to the Gestalt Benchmark Human Evaluation</div>
     <div>Choose an option to proceed:</div>
-    <div class="intro-buttons">
-      <button class="intro-btn" onclick="window.location.href='index.html'">Start Task</button>
-      <button class="intro-btn" onclick="window.location.href='demo.html'">View Demo</button>
+    <div class="intro-buttons" style="flex-direction: column; align-items: center;">
+      <button class="demo-btn"
+        style="margin-bottom: 28px; font-size: 1.2em; padding: 20px 40px; box-shadow: 0 4px 16px #ff980055, 0 1.5px 0 #f57c00;"
+        onclick="window.location.href='demo.html'">
+        👉 View Demo (Recommended First)
+      </button>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <button class="intro-btn" onclick="window.location.href='index.html?principle=closure'">Closure Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='index.html?principle=proximity'">Proximity Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='index.html?principle=similarity'">Similarity Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='index.html?principle=continuity'">Continuity Tasks
+        </button>
+        <button class="intro-btn" onclick="window.location.href='index.html?principle=symmetry'">Symmetry Tasks
+        </button>
+      </div>
     </div>
   </div>
 </body>
-</html>
 
+</html>

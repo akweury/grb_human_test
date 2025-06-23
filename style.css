@@ -54,6 +54,8 @@ h1 {
   overflow-y: visible;
   overflow: visible;
   padding-bottom: 8px;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* 🟩 Positive and 🟥 Negative Training Images */
 .thumb {
@@ -131,16 +133,7 @@ button:hover {
 
 /* 📝 Final result display */
 #result {
-  margin-top: 20px;
-  text-align: left;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  white-space: pre-wrap;
+  display: none;
 }
 
 /* Result Table Wrapper */
@@ -202,4 +195,37 @@ button:hover {
 .result-table td.incorrect {
   color: #d32f2f;
   font-weight: bold;
+}
+
+#principle-title {
+  position: fixed;
+  top: 24px;
+  right: 32px;
+  font-size: 2em;
+  font-weight: bold;
+  color: #1976d2;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 12px #e3f2fd;
+  text-align: right;
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: rgba(255,255,255,0.85);
+  padding: 8px 24px;
+  border-radius: 8px;
+  z-index: 1000;
+  margin-bottom: 0;
+}
+
+.training-title {
+  margin-top: 150px;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  #principle-title {
+    font-size: 1.1em;
+    right: 10px;
+    top: 10px;
+    padding: 6px 12px;
+  }
 }
