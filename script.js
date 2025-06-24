@@ -28,7 +28,6 @@ const BASE_URL = `https://huggingface.co/datasets/akweury/ELVIS/resolve/main/${P
 const TRAIN_API = `https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/${PRINCIPLE}/train`;
 const TEST_API = `https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/${PRINCIPLE}/test`;
 
-
 const TASK_COUNT = 10;
 
 let trainFolders = [];
@@ -144,7 +143,6 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   if (trainPos && trainPos.length > 0) {
     updateTaskIdDisplay(trainPos[0].id.split('_train_pos_')[0]);
   }
-
 
   grid.innerHTML = "";
   selectedImages.clear();
@@ -399,7 +397,7 @@ submitBtn.onclick = () => {
         <div style="font-size: 1.1em; margin-top: 10px; text-align: center;">
           <b>To submit your results:</b><br>
           1. Click <b>Download Results</b> to save your answers as a JSON file.<br>
-          2. Attach the downloaded file to an email and send it to <a href="mailto:jingyuan.sha@tu-darmstadt.de">jingyuan.sha@tu-darmstadt.de</a>.
+          2. Go to <a href="https://huggingface.co/spaces/akweury/elvis_human_test_result" target="_blank">the result upload page</a> and upload your file.
         </div>
         <div style="display: flex; gap: 24px; margin-top: 32px;">
           <button id="download-results-btn" style="
@@ -412,6 +410,16 @@ submitBtn.onclick = () => {
             cursor: pointer;
             transition: background 0.2s;
           ">Download Results</button>
+          <button id="upload-results-btn" style="
+            padding: 14px 32px;
+            font-size: 1.1em;
+            background: #43a047;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+          ">Upload Results</button>
           <button id="more-tests-btn" style="
             padding: 14px 32px;
             font-size: 1.1em;
@@ -438,6 +446,19 @@ submitBtn.onclick = () => {
     if (downloadResultsBtn) {
       downloadResultsBtn.onclick = downloadBtn.onclick;
     }
+    const uploadResultsBtn = document.getElementById("upload-results-btn");
+    if (uploadResultsBtn) {
+      uploadResultsBtn.onclick = () => {
+        const output = {
+          principle: PRINCIPLE,
+          results: taskResults
+        };
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        const filename = `grb_results_${PRINCIPLE}_${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}.json`;
+        uploadResultToHuggingFace(output, filename);
+      };
+    }
     const moreTestsBtn = document.getElementById("more-tests-btn");
     if (moreTestsBtn) {
       moreTestsBtn.onclick = () => {
@@ -457,6 +478,33 @@ submitBtn.onclick = () => {
   updateTaskIdDisplay(selectedTasks[currentTaskIndex].test); // Show the new task ID
 
 };
+
+// Upload result JSON to Hugging Face Space FastAPI endpoint
+async function uploadResultToHuggingFace(resultJson, filename = "result.json") {
+  const endpoint = "https://akweury-elvis-human.hf.space/upload";
+  const formData = new FormData();
+  const blob = new Blob([JSON.stringify(resultJson, null, 2)], { type: 'application/json' });
+  formData.append("file", blob, filename);
+
+  try {
+    const response = await fetch(endpoint, { method: "POST", body: formData });
+    const text = await response.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      alert("❌ Upload failed: Server did not return JSON.\n\n" + text);
+      return;
+    }
+    if (data.success) {
+      alert("✅ Result uploaded successfully!");
+    } else {
+      alert("❌ Upload failed: " + (data.msg || "Unknown error"));
+    }
+  } catch (err) {
+    alert("❌ Upload failed: " + err.message);
+  }
+}
 
 (async function init() {
   trainFolders = await fetchFolders(TRAIN_API);
