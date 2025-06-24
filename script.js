@@ -1,5 +1,102 @@
 // script.js
 
+const TRANSLATIONS = {
+  en: {
+    principle: "Principle",
+    trainingImages: "Training Images",
+    testImages: "Test Images (click to select positives)",
+    easy: "😊 Easy",
+    hard: "😮‍💨 Hard",
+    hardnessPrompt: "How did you feel about this task?\nPlease select:",
+    nextTask: "Next Task",
+    downloadResults: "Download Results",
+    task: "Task",
+    imageId: "Image ID",
+    selected: "Selected",
+    isPositive: "Is Positive",
+    correct: "Correct",
+    timeTaken: "Time (s)",
+    yourPerformance: "Your Performance",
+    correctCount: "{correct} / {total} correct",
+    completedTasks: "You completed {count} tasks.",
+    feedbackGreat: "Great job! Your careful work really helps our research.",
+    feedbackNice: "Nice effort! Your answers are valuable for our study.",
+    feedbackTricky: "These were tricky tasks—thanks for your thoughtful participation!",
+    feedbackChallenging: "Those were challenging tasks—your contribution is truly appreciated!",
+    downloadResultsBtn: "Download Results",
+    uploadResultsBtn: "Upload Results",
+    moreTestsBtn: "Do More Tests",
+    taskId: "Task ID: {id}"
+  },
+  zh: {
+    principle: "原则",
+    trainingImages: "训练图片",
+    testImages: "测试图片（点击选择正样本）",
+    easy: "😊 简单",
+    hard: "😮‍💨 困难",
+    hardnessPrompt: "您觉得这个任务如何？\n请选择：",
+    nextTask: "下一个任务",
+    downloadResults: "下载结果",
+    task: "任务",
+    imageId: "图片ID",
+    selected: "已选",
+    isPositive: "正样本",
+    correct: "正确",
+    timeTaken: "用时（秒）",
+    yourPerformance: "您的表现",
+    correctCount: "{correct} / {total} 正确",
+    completedTasks: "您完成了 {count} 个任务。",
+    feedbackGreat: "干得好！您的认真帮助了我们的研究。",
+    feedbackNice: "不错的努力！您的答案对我们的研究很有价值。",
+    feedbackTricky: "这些任务很有挑战性——感谢您的参与！",
+    feedbackChallenging: "这些任务很难——非常感谢您的贡献！",
+    downloadResultsBtn: "下载结果",
+    uploadResultsBtn: "上传结果",
+    moreTestsBtn: "再做一些测试",
+    taskId: "任务ID：{id}"
+  },
+  de: {
+    principle: "Prinzip",
+    trainingImages: "Trainingsbilder",
+    testImages: "Testbilder (klicken Sie, um Positive auszuwählen)",
+    easy: "😊 Einfach",
+    hard: "😮‍💨 Schwierig",
+    hardnessPrompt: "Wie empfanden Sie diese Aufgabe?\nBitte auswählen:",
+    nextTask: "Nächste Aufgabe",
+    downloadResults: "Ergebnisse herunterladen",
+    task: "Aufgabe",
+    imageId: "Bild-ID",
+    selected: "Ausgewählt",
+    isPositive: "Positiv",
+    correct: "Korrekt",
+    timeTaken: "Zeit (s)",
+    yourPerformance: "Ihre Leistung",
+    correctCount: "{correct} / {total} korrekt",
+    completedTasks: "Sie haben {count} Aufgaben abgeschlossen.",
+    feedbackGreat: "Großartige Arbeit! Ihre sorgfältige Arbeit hilft unserer Forschung sehr.",
+    feedbackNice: "Gute Arbeit! Ihre Antworten sind wertvoll für unsere Studie.",
+    feedbackTricky: "Das waren knifflige Aufgaben – danke für Ihre Teilnahme!",
+    feedbackChallenging: "Das waren schwierige Aufgaben – Ihr Beitrag wird sehr geschätzt!",
+    downloadResultsBtn: "Ergebnisse herunterladen",
+    uploadResultsBtn: "Ergebnisse hochladen",
+    moreTestsBtn: "Weitere Tests durchführen",
+    taskId: "Aufgaben-ID: {id}"
+  }
+};
+
+
+
+// Add this after defining TRANSLATIONS, LANG, and T
+function setLanguage(lang) {
+  localStorage.setItem("lang", lang);
+  window.location.reload();
+}
+
+// Try to get language from localStorage first
+const LANG = localStorage.getItem("lang") || (navigator.language || "en").slice(0, 2);
+const T = TRANSLATIONS[LANG] || TRANSLATIONS.en;
+
+
 // Get principle from URL, default to 'closure'
 function getPrinciple() {
   const params = new URLSearchParams(window.location.search);
@@ -8,21 +105,147 @@ function getPrinciple() {
 
 const PRINCIPLE = getPrinciple();
 
-// Map principle to display name (capitalize)
+// Map principle to display name in multiple languages
 const PRINCIPLE_DISPLAY = {
-  closure: "Closure",
-  proximity: "Proximity",
-  similarity: "Similarity",
-  continuity: "Continuity",
-  symmetry: "Symmetry"
+  closure: {
+    en: "Closure",
+    zh: "闭合",
+    de: "Geschlossenheit"
+  },
+  proximity: {
+    en: "Proximity",
+    zh: "接近性",
+    de: "Nähe"
+  },
+  similarity: {
+    en: "Similarity",
+    zh: "相似性",
+    de: "Ähnlichkeit"
+  },
+  continuity: {
+    en: "Continuity",
+    zh: "连续性",
+    de: "Kontinuität"
+  },
+  symmetry: {
+    en: "Symmetry",
+    zh: "对称性",
+    de: "Symmetrie"
+  }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const titleDiv = document.getElementById("principle-title");
-  if (titleDiv) {
-    titleDiv.textContent = `Principle: ${PRINCIPLE_DISPLAY[PRINCIPLE] || PRINCIPLE}`;
+  // --- Principle Title Panel (top left) ---
+  let titleDiv = document.getElementById("principle-title");
+  if (!titleDiv) {
+    titleDiv = document.createElement("div");
+    titleDiv.id = "principle-title";
+    document.body.appendChild(titleDiv);
   }
+  // Use the translated principle name
+  const principleName = (PRINCIPLE_DISPLAY[PRINCIPLE] && PRINCIPLE_DISPLAY[PRINCIPLE][LANG]) || PRINCIPLE;
+  titleDiv.textContent = `${T.principle}: ${principleName}`;
+  titleDiv.style.position = "fixed";
+  titleDiv.style.top = "16px";
+  titleDiv.style.left = "16px";
+  titleDiv.style.zIndex = "9998";
+  titleDiv.style.background = "#fff";
+  titleDiv.style.border = "1px solid #ccc";
+  titleDiv.style.borderRadius = "8px";
+  titleDiv.style.boxShadow = "0 2px 8px #0001";
+  titleDiv.style.padding = "8px 18px";
+  titleDiv.style.fontSize = "1.2em";
+  titleDiv.style.fontWeight = "bold";
+  titleDiv.style.color = "#1976d2";
+  titleDiv.style.maxWidth = "320px";
+  titleDiv.style.whiteSpace = "nowrap";
+  titleDiv.style.overflow = "hidden";
+  titleDiv.style.textOverflow = "ellipsis";
+
+  // --- Language Switcher Button (top right) ---
+  const langSwitcher = document.createElement("div");
+  langSwitcher.style.position = "fixed";
+  langSwitcher.style.top = "16px";
+  langSwitcher.style.right = "16px";
+  langSwitcher.style.zIndex = "9999";
+  langSwitcher.style.background = "transparent";
+  langSwitcher.style.border = "none"; // No outline
+  langSwitcher.style.borderRadius = "8px";
+  langSwitcher.style.boxShadow = "none";
+  langSwitcher.style.padding = "6px 24px";
+  langSwitcher.style.display = "flex";
+  langSwitcher.style.alignItems = "center";
+  langSwitcher.style.fontSize = "1em";
+  langSwitcher.style.gap = "0";
+
+  const label = document.createElement("span");
+  label.textContent = "🌐";
+  langSwitcher.appendChild(label);
+
+
+  // Add "Back to Home" button
+  const homeBtn = document.createElement("button");
+  homeBtn.textContent = "🏠 Home";
+  homeBtn.style.background = "none";
+  homeBtn.style.color = "#1976d2";
+  homeBtn.style.border = "none";
+  homeBtn.style.outline = "none";
+  homeBtn.style.fontFamily = "'Montserrat', Arial, sans-serif";
+  homeBtn.style.fontWeight = "700";
+  homeBtn.style.fontSize = "1em";
+  homeBtn.style.cursor = "pointer";
+  homeBtn.style.padding = "0 10px 0 0";
+  homeBtn.style.marginRight = "12px";
+  homeBtn.style.transition = "color 0.2s";
+  homeBtn.onmouseenter = () => homeBtn.style.color = "#ff9800";
+  homeBtn.onmouseleave = () => homeBtn.style.color = "#1976d2";
+  homeBtn.onclick = () => window.location.href = "index.html";
+  langSwitcher.appendChild(homeBtn);
+
+  const langs = [
+    { code: "en", label: "en" },
+    { code: "zh", label: "中文" },
+    { code: "de", label: "de" }
+  ];
+
+
+  langs.forEach(({ code, label }, idx) => {
+    const btn = document.createElement("button");
+    btn.textContent = label;
+    btn.style.background = "none";
+    btn.style.color = code === LANG ? "#ff9800" : "#0077ff";
+    btn.style.border = "none";
+    btn.style.outline = "none";
+    btn.style.fontFamily = "'Montserrat', Arial, sans-serif";
+    btn.style.fontWeight = "700";
+    btn.style.fontSize = "1em";
+    btn.style.cursor = "pointer";
+    btn.style.padding = "0 4px";
+    btn.style.transition = "color 0.2s";
+    btn.className = "lang-btn";
+    if (code === LANG) btn.classList.add("active");
+    btn.onclick = () => setLanguage(code);
+
+    btn.onmouseenter = () => btn.style.color = "#ff9800";
+    btn.onmouseleave = () => btn.style.color = code === LANG ? "#ff9800" : "#0077ff";
+
+    langSwitcher.appendChild(btn);
+
+    // Add separator except after the last button
+    if (idx < langs.length - 1) {
+      const sep = document.createElement("span");
+      sep.textContent = "|";
+      sep.className = "lang-sep";
+      sep.style.color = "#888";
+      sep.style.padding = "0 2px";
+      sep.style.userSelect = "none";
+      langSwitcher.appendChild(sep);
+    }
+  });
+
+  document.body.appendChild(langSwitcher);
 });
+
 
 const BASE_URL = `https://huggingface.co/datasets/akweury/ELVIS/resolve/main/${PRINCIPLE}`;
 const TRAIN_API = `https://huggingface.co/api/datasets/akweury/ELVIS/tree/main/${PRINCIPLE}/train`;
@@ -44,13 +267,13 @@ let taskHardness = [];
 const grid = document.getElementById("image-grid");
 const resultDiv = document.getElementById("result");
 const submitBtn = document.getElementById("submit-button");
-submitBtn.innerText = "Next Task";
+submitBtn.innerText = T.nextTask;
 
 const progressBar = document.getElementById("progress-bar");
 const taskCounter = document.getElementById("task-counter");
 
 const downloadBtn = document.createElement("button");
-downloadBtn.innerText = "Download Results";
+downloadBtn.innerText = T.downloadResults;
 downloadBtn.style.display = "none";
 downloadBtn.onclick = () => {
   // Save both the principle and the results in the JSON file
@@ -75,14 +298,14 @@ document.body.insertBefore(downloadBtn, resultDiv);
 
 function updateTaskCounter(index, total) {
   if (taskCounter) {
-    taskCounter.textContent = `Task ${index + 1} / ${total}`;
+    taskCounter.textContent = `${T.task} ${index + 1} / ${total}`;
   }
 }
 
 function updateTaskIdDisplay(taskId) {
   const taskIdDiv = document.getElementById("task-id");
   if (taskIdDiv) {
-    taskIdDiv.textContent = `Task ID: ${taskId}`;
+    taskIdDiv.textContent = T.taskId.replace("{id}", taskId);
   }
 }
 
@@ -148,7 +371,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   selectedImages.clear();
 
   const trainLabel = document.createElement("h3");
-  trainLabel.innerText = "Training Images";
+  trainLabel.innerText = T.trainingImages;
   trainLabel.className = "training-title";
   grid.appendChild(trainLabel);
 
@@ -171,7 +394,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   grid.appendChild(trainRow);
 
   const testLabel = document.createElement("h3");
-  testLabel.innerText = "Test Images (click to select positives)";
+  testLabel.innerText = T.testImages;
   grid.appendChild(testLabel);
 
   const testRow = document.createElement("div");
@@ -227,7 +450,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
 
   // Add instruction text above the buttons
   const hardnessText = document.createElement("div");
-  hardnessText.innerText = "How did you feel about this task?\nPlease select:";
+  hardnessText.innerText = T.hardnessPrompt;
   hardnessText.style.fontSize = "1.3em";
   hardnessText.style.fontWeight = "500";
   hardnessText.style.color = "#333";
@@ -254,7 +477,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
 
   // Easy Button
   const easyBtn = document.createElement("button");
-  easyBtn.innerText = "😊 Easy";
+  easyBtn.innerText = T.easy;
   easyBtn.style.padding = "24px 48px";
   easyBtn.style.fontSize = "2em";
   easyBtn.style.borderRadius = "16px";
@@ -263,7 +486,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
 
   // Hard Button
   const hardBtn = document.createElement("button");
-  hardBtn.innerText = "😮‍💨 Hard";
+  hardBtn.innerText = T.hard;
   hardBtn.style.padding = "24px 48px";
   hardBtn.style.fontSize = "2em";
   hardBtn.style.borderRadius = "16px";
@@ -312,11 +535,12 @@ function createResultTable(allResults) {
   const table = document.createElement("table");
   table.className = "result-table";
   const header = table.insertRow();
-  ["Task", "Image ID", "Selected", "Is Positive", "Correct", "Time (s)"].forEach(text => {
+  [T.task, T.imageId, T.selected, T.isPositive, T.correct, T.timeTaken].forEach(text => {
     const th = document.createElement("th");
     th.innerText = text;
     header.appendChild(th);
   });
+
 
   allResults.forEach(({ task, result }) => {
     result.forEach(r => {
@@ -375,13 +599,13 @@ submitBtn.onclick = () => {
     // Friendly, supportive feedback
     let feedback = "";
     if (percent >= 0.85) {
-      feedback = "Great job! Your careful work really helps our research.";
+      feedback = T.feedbackGreat;
     } else if (percent >= 0.7) {
-      feedback = "Nice effort! Your answers are valuable for our study.";
+      feedback = T.feedbackNice;
     } else if (percent >= 0.5) {
-      feedback = "These were tricky tasks—thanks for your thoughtful participation!";
+      feedback = T.feedbackTricky;
     } else {
-      feedback = "Those were challenging tasks—your contribution is truly appreciated!";
+      feedback = T.feedbackChallenging;
     }
 
     const resultSummary = `
@@ -401,14 +625,14 @@ submitBtn.onclick = () => {
           text-align: center;
           line-height: 1.2;
         ">
-          Your Performance<br>
-          <span style="font-size:1.2em;">${correct} / ${total.length} correct</span>
+          ${T.yourPerformance}<br>
+          <span style="font-size:1.2em;">${T.correctCount.replace("{correct}", correct).replace("{total}", total.length)}</span>
         </div>
         <div style="font-size: 1.5em; margin-bottom: 18px; color: #388e3c; text-align: center;">
           ${feedback}
         </div>
         <div style="font-size: 1.3em; margin-bottom: 18px; text-align: center;">
-          You completed ${TASK_COUNT} tasks.
+          ${T.completedTasks.replace("{count}", TASK_COUNT)}
         </div>
         <div style="display: flex; gap: 24px; margin-top: 32px;">
           <button id="download-results-btn" style="
@@ -420,7 +644,7 @@ submitBtn.onclick = () => {
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
-          ">Download Results</button>
+          ">${T.downloadResultsBtn}</button>
           <button id="upload-results-btn" style="
             padding: 14px 32px;
             font-size: 1.1em;
@@ -430,7 +654,7 @@ submitBtn.onclick = () => {
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
-          ">Upload Results</button>
+          ">${T.uploadResultsBtn}</button>
           <button id="more-tests-btn" style="
             padding: 14px 32px;
             font-size: 1.1em;
@@ -440,7 +664,7 @@ submitBtn.onclick = () => {
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
-          ">Do More Tests</button>
+          ">${T.moreTestsBtn}</button>
         </div>
       </div>
     `;

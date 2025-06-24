@@ -200,19 +200,26 @@ button:hover {
 #principle-title {
   position: fixed;
   top: 24px;
-  right: 32px;
+  left: 32px;
   font-size: 2em;
   font-weight: bold;
   color: #1976d2;
   letter-spacing: 0.03em;
   text-shadow: 0 2px 12px #e3f2fd;
-  text-align: right;
+  text-align: left;
   font-family: 'Montserrat', Arial, sans-serif;
   background: rgba(255,255,255,0.85);
   padding: 8px 24px;
   border-radius: 8px;
   z-index: 1000;
   margin-bottom: 0;
+}
+
+#lang-select,
+.lang-select-container {
+  position: relative;
+  z-index: 1000;
+  background: #fff;
 }
 
 .training-title {
@@ -228,4 +235,41 @@ button:hover {
     top: 10px;
     padding: 6px 12px;
   }
+}
+
+
+.lang-btn {
+  background: none;
+  border: none;
+  outline: none;
+  color: #0077ff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+
+.lang-btn.active,
+.lang-btn:hover {
+  color: #ff9800;
+  text-decoration: underline;
+}
+
+.lang-sep {
+  color: #888;
+  padding: 0 2px;
+  user-select: none;
+}
+
+.lang-select-container {
+  min-width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: 0 2px 8px #b3c6e344;
 }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestalt Human Evaluation – Demo</title>
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -18,9 +19,11 @@
       text-align: left;
       line-height: 1.7;
     }
+
     .ground-truth {
       position: relative;
     }
+
     .ground-truth::after {
       content: "✔";
       color: #4caf50;
@@ -28,7 +31,7 @@
       position: absolute;
       top: 8px;
       right: 12px;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.7);
       border-radius: 50%;
       padding: 2px 8px;
       pointer-events: none;
@@ -36,73 +39,12 @@
     }
   </style>
 </head>
+
 <body>
+  <div id="lang-select-placeholder" style="position: absolute; top: 24px; right: 32px;"></div>
   <h1>Gestalt Benchmark – Demo</h1>
-  <div class="demo-description" style="font-size: 16px; line-height: 1.6;">
+  <div id="demo-description" class="demo-description" style="font-size: 16px; line-height: 1.6;"></div>
 
-  <strong>🧠 How does this experiment work?</strong><br><br>
-
-  In this experiment, you will participate in a visual reasoning study using the <b>ELVIS benchmark</b>, which evaluates human reasoning based on classic <b>Gestalt principles</b> (such as proximity, similarity, closure, etc.).<br><br>
-
-  For each task, you will be shown:
-  <ul>
-    <li>🟢 A set of <b>training examples</b> — these are labeled as either 
-      <span style="color:#388e3c;font-weight:bold;">positive</span> or 
-      <span style="color:#d32f2f;font-weight:bold;">negative</span>.
-    </li>
-    <li>🔍 A set of <b>test examples</b> — your job is to decide which of these follow the same hidden rule as the positive training images.</li>
-  </ul>
-
-  <b>What defines a positive or negative image?</b><br>
-  <ul>
-    <li><span style="color:#388e3c;font-weight:bold;">Positive images</span> follow a hidden logic rule (e.g., “there is a red triangle in the image”).</li>
-    <li><span style="color:#d32f2f;font-weight:bold;">Negative images</span> do <b>not</b> follow this rule.</li>
-  </ul>
-
-  ⚠️ <b>You will not be told the rule.</b> Instead, your task is to <b>infer it</b> by carefully analyzing the training examples and their labels.<br><br>
-
-  Then, based on your reasoning, you must apply the rule to the test images and make your prediction.<br><br>
-
-  ✅ <b>Your task:</b>
-  <ul>
-    <li>Study the training examples and identify the common rule behind the positive ones.</li>
-    <li>Apply your reasoning to the test examples.</li>
-    <li><b>Select all test images that you think are positive</b> (i.e., that follow the same rule).</li>
-  </ul>
-
-  📦 <b>Each task contains:</b>
-  <ul>
-    <li>A small number of training examples (typically 4–6).</li>
-    <li><b>6 test images</b> — you can select multiple test images that you believe are positive.</li>
-  </ul>
-
-  🧩 <b>What kinds of rules might appear?</b>
-  <ul>
-    <li>🎨 <b>Color</b></li>
-    <li>🔺 <b>Shape</b></li>
-    <li>📏 <b>Size</b></li>
-    <li>#️⃣ <b>Count</b></li>
-    <li>🧩 Or a combination of the above</li>
-  </ul>
-
-  🔎 <b>Examples of possible logic rules:</b>
-  <ul>
-    <li>✔️ All positive images contain at least one <b>red triangle</b>.</li>
-    <li>✔️ All positive images <b>do not contain any triangle</b>.</li>
-    <li>✔️ All positive images contain <b>exactly three blue circles</b>.</li>
-    <li>✔️ There is a <b>large yellow square</b> that appears only once in each positive image.</li>
-    <li>✔️ All objects in positive images have the <b>same size</b>.</li>
-    <li>✔️ There are <b>two groups of objects</b> forming triangles, and <b>each triangle contains at least one red circle</b>.</li>
-    <li>✔️ The objects form a <b>symmetrical structure</b> with respect to the center.</li>
-    <li>✔️ There are <b>more red objects than blue objects</b>.</li>
-    <li>✔️ A <b>green circle appears at the top-left corner</b> in each positive image.</li>
-  </ul>
-
-  This study is designed to measure human ability to perform abstract reasoning from visual inputs. Your participation will help us better understand how humans interpret patterns and structure in visual scenes. Thank you! 🙏
-
-</div>
-  
-  
   <div id="task-id" style="font-size: 1.2em; font-weight: bold; margin-bottom: 16px;"></div>
 
   <div id="progress-bar-container">
@@ -113,9 +55,38 @@
 
   <div style="display: flex; gap: 20px; justify-content: center; margin-top: 24px;">
     <button id="submit-button">Next Demo Task</button>
-    <button id="ready-btn" onclick="window.location.href='intro.html'">Ready to Go</button>
+    <button id="ready-btn" onclick="window.location.href='index.html'">Ready to Go</button>
   </div>
   <div id="result"></div>
   <script src="demo.js"></script>
+  <script src="lang.js"></script>
+  <script>
+    // Load the language select component
+    fetch('components/lang-select.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('lang-select-placeholder').innerHTML = html;
+        renderDemoDescription();
+      });
+
+    // Render the demo description based on current language
+    function renderDemoDescription() {
+      const lang = localStorage.getItem('lang') || 'en';
+      const translationsObj = typeof translations !== 'undefined' ? translations : {};
+      const desc = translationsObj[lang]?.["demo-description"] || translationsObj['en']?.["demo-description"] || '';
+      document.getElementById('demo-description').innerHTML = desc;
+    }
+
+    // Listen for language changes
+    window.addEventListener('languageChanged', renderDemoDescription);
+
+    // Initial render in case lang-select is already set
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      setTimeout(renderDemoDescription, 0);
+    } else {
+      document.addEventListener("DOMContentLoaded", renderDemoDescription);
+    }
+  </script>
 </body>
+
 </html>

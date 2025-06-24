@@ -185,45 +185,48 @@
 </head>
 
 <body>
+  <div id="lang-select-placeholder" style="position: absolute; top: 24px; right: 32px;"></div>
   <div class="intro-container">
-    <div class="intro-title">
-  <span class="elvis-name">ELVIS</span>
-</div>
-<div class="elvis-tagline">
-  <h3>The Gestalt Vision Benchmark</h3>
-</div>
+    <div class="intro-title" id="elvis-title">
+      <span class="elvis-name">ELVIS</span>
+    </div>
+    <div class="elvis-tagline">
+      <h3 id="elvis-tagline">The Gestalt Vision Benchmark</h3>
+    </div>
     <div class="intro-subtitle-box">
       <div class="intro-subtitle">
-        <span class="terminal-line">&gt; 👋 Welcome! This portal lets you participate in our study on Gestalt principles in visual perception. 🧩</span>
-        <span class="terminal-line">&gt; 🌟 Please try the demo first, then select a principle to start the test. Your contribution is valuable for our research! 💡🦄</span>
+        <span class="terminal-line" id="welcome-line1">&gt; 👋 Welcome! This portal lets you participate in our study on
+          Gestalt principles in visual perception. 🧩</span>
+        <span class="terminal-line" id="welcome-line2">&gt; 🌟 Please try the demo first, then select a principle to
+          start the test. Your contribution is valuable for our research! 💡🦄</span>
       </div>
     </div>
     <div class="intro-buttons">
-      <button class="demo-btn" onclick="window.location.href='demo.html'">
+      <button class="demo-btn" id="demo-btn" onclick="window.location.href='demo.html'">
         👉 View Demo (Recommended First)
       </button>
       <div class="principle-btn-row">
-        <button class="intro-btn" onclick="window.location.href='task.html?principle=closure'">Closure Tasks
-        </button>
-        <button class="intro-btn" onclick="window.location.href='task.html?principle=proximity'">Proximity Tasks
-        </button>
-        <button class="intro-btn" onclick="window.location.href='task.html?principle=similarity'">Similarity Tasks
-        </button>
-        <button class="intro-btn" onclick="window.location.href='task.html?principle=continuity'">Continuity Tasks
-        </button>
-        <button class="intro-btn" onclick="window.location.href='task.html?principle=symmetry'">Symmetry Tasks
-        </button>
+        <button class="intro-btn" id="closure-btn" onclick="window.location.href='task.html?principle=closure'">Closure
+          Tasks</button>
+        <button class="intro-btn" id="proximity-btn"
+          onclick="window.location.href='task.html?principle=proximity'">Proximity Tasks</button>
+        <button class="intro-btn" id="similarity-btn"
+          onclick="window.location.href='task.html?principle=similarity'">Similarity Tasks</button>
+        <button class="intro-btn" id="continuity-btn"
+          onclick="window.location.href='task.html?principle=continuity'">Continuity Tasks</button>
+        <button class="intro-btn" id="symmetry-btn"
+          onclick="window.location.href='task.html?principle=symmetry'">Symmetry Tasks</button>
       </div>
     </div>
     <div class="citation-container">
-      <h3>Citation</h3>
-      <div>
+      <h3 id="citation-title">Citation</h3>
+      <div id="citation-authors">
         Jingyuan Sha, Hikaru Shindo, Kristian Kersting, Devendra Singh Dhami (2025):<br>
         <b>Gestalt Vision: A Dataset for Evaluating Gestalt Principles in Visual Perception.</b><br>
         In Proceedings of the 19th International Conference on Neurosymbolic Learning and Reasoning (NeSy).<br>
         [<a href="NeSy_2025_GRB.pdf" target="_blank">PDF</a>]
       </div>
-      <pre>
+      <pre id="citation-bib">
 @inproceedings{sha2025gestalt,
   title     = {Gestalt Vision: A Dataset for Evaluating Gestalt Principles in Visual Perception},
   author    = {Jingyuan Sha and Hikaru Shindo and Kristian Kersting and Devendra Singh Dhami},
@@ -234,6 +237,15 @@
       </pre>
     </div>
   </div>
+  <script src="lang.js"></script>
+  <script>
+    // Load the language select component
+    fetch('components/lang-select.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('lang-select-placeholder').innerHTML = html;
+      });
+  </script>
 </body>
 
 </html>

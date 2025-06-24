@@ -93,26 +93,26 @@ function displayDemoTask(task) {
   updateTaskIdDisplay(task.id);
 
   // 🟢 DEBUG: Print all image URLs at the top of the page
-  let debugDiv = document.getElementById("debug-image-urls");
-  if (!debugDiv) {
-    debugDiv = document.createElement("div");
-    debugDiv.id = "debug-image-urls";
-    debugDiv.style.fontSize = "0.9em";
-    debugDiv.style.textAlign = "left";
-    debugDiv.style.background = "#fffbe7";
-    debugDiv.style.border = "1px solid #ffe082";
-    debugDiv.style.padding = "10px";
-    debugDiv.style.marginBottom = "12px";
-    debugDiv.style.maxHeight = "200px";
-    debugDiv.style.overflowY = "auto";
-    document.body.insertBefore(debugDiv, document.body.firstChild.nextSibling);
-  }
-  const allUrls = [
-    ...task.trainPos.map(img => img.url),
-    ...task.trainNeg.map(img => img.url),
-    ...task.testImages.map(img => img.url)
-  ];
-  debugDiv.innerHTML = `<strong>Image URLs for this task:</strong><br><pre style="white-space:pre-wrap;">${allUrls.join('\n')}</pre>`;
+  // let debugDiv = document.getElementById("debug-image-urls");
+  // if (!debugDiv) {
+  //   debugDiv = document.createElement("div");
+  //   debugDiv.id = "debug-image-urls";
+  //   debugDiv.style.fontSize = "0.9em";
+  //   debugDiv.style.textAlign = "left";
+  //   debugDiv.style.background = "#fffbe7";
+  //   debugDiv.style.border = "1px solid #ffe082";
+  //   debugDiv.style.padding = "10px";
+  //   debugDiv.style.marginBottom = "12px";
+  //   debugDiv.style.maxHeight = "200px";
+  //   debugDiv.style.overflowY = "auto";
+  //   document.body.insertBefore(debugDiv, document.body.firstChild.nextSibling);
+  // }
+  // const allUrls = [
+  //   ...task.trainPos.map(img => img.url),
+  //   ...task.trainNeg.map(img => img.url),
+  //   ...task.testImages.map(img => img.url)
+  // ];
+  // debugDiv.innerHTML = `<strong>Image URLs for this task:</strong><br><pre style="white-space:pre-wrap;">${allUrls.join('\n')}</pre>`;
 
   const grid = document.getElementById("image-grid");
   grid.innerHTML = "";
