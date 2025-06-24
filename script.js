@@ -494,6 +494,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   btnRow.style.display = "flex";
   btnRow.style.flexDirection = "row";
   btnRow.style.gap = "32px";
+  btnRow.style.justifyContent = "center"; // Add this line for horizontal centering
 
   // Helper to set button styles based on state
   function setBtnState(btn, type, selected) {
@@ -507,6 +508,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   // Easy Button
   const easyBtn = document.createElement("button");
   easyBtn.innerText = T.easy;
+  easyBtn.className = "hardness-btn"; // Add this line
   easyBtn.style.padding = "24px 48px";
   easyBtn.style.fontSize = "2em";
   easyBtn.style.borderRadius = "16px";
@@ -516,6 +518,7 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   // Hard Button
   const hardBtn = document.createElement("button");
   hardBtn.innerText = T.hard;
+  hardBtn.className = "hardness-btn"; // Add this line
   hardBtn.style.padding = "24px 48px";
   hardBtn.style.fontSize = "2em";
   hardBtn.style.borderRadius = "16px";

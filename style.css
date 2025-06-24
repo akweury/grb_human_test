@@ -15,18 +15,22 @@ body {
     background-position: 0% 50%;
     background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%, #c3eaff 100%);
   }
+
   25% {
     background-position: 50% 100%;
     background: linear-gradient(120deg, #c3eaff 0%, #f9f9f9 60%, #e3f0ff 100%);
   }
+
   50% {
     background-position: 100% 50%;
     background: linear-gradient(120deg, #f9f9f9 0%, #b3e0ff 60%, #e3f0ff 100%);
   }
+
   75% {
     background-position: 50% 0%;
     background: linear-gradient(120deg, #e3f0ff 0%, #c3eaff 60%, #f9f9f9 100%);
   }
+
   100% {
     background-position: 0% 50%;
     background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%, #c3eaff 100%);
@@ -68,7 +72,8 @@ h1 {
 .image-row {
   display: flex;
   flex-direction: row;
-  justify-content: center;   /* Center images horizontally */
+  justify-content: center;
+  /* Center images horizontally */
   gap: 10px;
   margin-bottom: 20px;
   flex-wrap: nowrap;
@@ -81,6 +86,7 @@ h1 {
   margin-left: auto;
   margin-right: auto;
 }
+
 /* 🟩 Positive and 🟥 Negative Training Images */
 .thumb {
   width: calc(30vw - 40px);
@@ -180,7 +186,7 @@ button:hover {
   border-collapse: collapse;
   background: #fff;
   font-size: 1em;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   border-radius: 8px;
   overflow: hidden;
   margin: 0;
@@ -191,7 +197,8 @@ button:hover {
   overflow-x: auto;
 }
 
-.result-table th, .result-table td {
+.result-table th,
+.result-table td {
   padding: 10px 14px;
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
@@ -232,7 +239,7 @@ button:hover {
   text-shadow: 0 2px 12px #e3f2fd;
   text-align: left;
   font-family: 'Montserrat', Arial, sans-serif;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255, 255, 255, 0.85);
   padding: 8px 24px;
   border-radius: 8px;
   z-index: 1000;
@@ -251,20 +258,33 @@ button:hover {
   text-align: center;
   width: 100%;
 }
+
 .test-title {
   margin-top: 50;
   text-align: center;
   width: 100%;
 }
 
-@media (max-width: 600px) {
-  #principle-title {
-    font-size: 1.1em;
-    right: 10px;
-    top: 10px;
-    padding: 6px 12px;
-  }
+
+
+.result-btn-row,
+.center-btn-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
+
+/* .center-btn-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 24px;
+} */
+
+
 
 
 .lang-btn {
@@ -302,26 +322,185 @@ button:hover {
   background: transparent;
   box-shadow: 0 2px 8px #b3c6e344;
 }
-.center-btn-row {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 24px;
-}
+
 
 #result-title {
   font-size: 2em;
   font-weight: bold;
   color: #1976d2;
-  margin-bottom: 32px; /* More space below the title */
-  margin-top: 32px;    /* More space above the title */
+  margin-bottom: 32px;
+  /* More space below the title */
+  margin-top: 32px;
+  /* More space above the title */
   text-align: left;
 }
 
 .result-performance {
   font-size: 1.3em;
-  color: #388e3c; /* Use a different color for performance */
+  color: #388e3c;
+  /* Use a different color for performance */
   margin-bottom: 24px;
   margin-top: 24px;
   font-weight: 600;
+}
+
+.fixed-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  padding: 16px 36px;
+  font-size: 1.2em;
+  border-radius: 8px;
+  z-index: 2000;
+}
+
+
+@media (max-width: 700px) {
+
+  body,
+  .intro-container,
+  .citation-container,
+  #principle-title,
+  .image-row,
+  .center-btn-row,
+  #result,
+  .result-table {
+    max-width: 100vw !important;
+    padding: 0 4vw !important;
+    font-size: 1em !important;
+    box-sizing: border-box;
+  }
+
+  #principle-title {
+    font-size: 1.1em !important;
+    padding: 0 6px !important;
+  }
+
+  .image-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .thumb,
+  .static-image,
+  .selectable-image {
+    max-width: 90vw !important;
+    height: auto !important;
+  }
+
+  /* .center-btn-row,
+  .result-btn-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  } */
+
+  .result-table th,
+  .result-table td {
+    font-size: 0.9em !important;
+    padding: 4px !important;
+  }
+
+
+  textarea#user-feedback {
+    font-size: 1em !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #lang-select-placeholder {
+    position: static !important;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 12px 0 0 0;
+    top: unset !important;
+    right: unset !important;
+  }
+
+  .intro-title {
+    margin-top: 32px;
+  }
+
+  /* Feedback container and textarea */
+  #result textarea,
+  textarea#user-feedback {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+  }
+
+  #result label[for="user-feedback"] {
+    font-size: 1em !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    word-break: break-word;
+  }
+
+  #result div[style*="max-width: 480px"] {
+    max-width: 98vw !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .hardness-btn {
+    padding: 12px 0 !important;
+    font-size: 1.1em !important;
+    width: 48vw !important;
+    min-width: 120px;
+    max-width: 90vw;
+    margin: 0 2vw;
+    box-sizing: border-box;
+    text-align: center;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  #hardness-feedback>div[style*="gap"] {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100%;
+    align-items: center !important;
+    /* Center items horizontally */
+    justify-content: center !important;
+    /* Center items vertically if needed */
+  }
+
+  .result-btn-row,
+  .center-btn-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .result-btn-row button,
+  .center-btn-row button,
+  #download-results-btn,
+  #upload-results-btn,
+  #more-tests-btn {
+    width: 90vw !important;
+    max-width: 320px;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 14px 0 !important;
+    font-size: 1.1em !important;
+    margin: 0 auto !important;
+    display: block !important;
+    text-align: center;
+  }
+    /* Force flex column for any flex row with gap: 24px (matches your resultSummary div) */
+  #result div[style*="display: flex"][style*="gap: 24px"] {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
 }
