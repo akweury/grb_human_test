@@ -108,7 +108,7 @@ function renderTaskLang() {
   if (title) title.textContent = t["task-title"] || "Gestalt Benchmark – Main Task";
   const submit = document.getElementById('submit-button');
   if (submit) submit.textContent = t["nextTask"] || "Next Task";
-  
+
   // Add more elements as needed
 }
 window.renderTaskLang = renderTaskLang; // <-- Make it global
@@ -300,10 +300,12 @@ const downloadBtn = document.createElement("button");
 downloadBtn.innerText = T.downloadResults;
 downloadBtn.style.display = "none";
 downloadBtn.onclick = () => {
+  const feedbackText = document.getElementById('user-feedback')?.value || "";
   // Save both the principle and the results in the JSON file
   const output = {
     principle: PRINCIPLE,
-    results: taskResults
+    results: taskResults,
+    feedback: feedbackText
   };
   const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -636,65 +638,50 @@ submitBtn.onclick = () => {
     }
 
     const resultSummary = `
-      <div style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 45vh;
-        width: 100%;
-      ">
-        <div style="
-          font-size: 3.2em;
-          font-weight: bold;
-          color: #1976d2;
-          margin-bottom: 18px;
-          text-align: center;
-          line-height: 1.2;
-        ">
-          ${T.yourPerformance}<br>
-          <span style="font-size:1.2em;">${T.correctCount.replace("{correct}", correct).replace("{total}", total.length)}</span>
-        </div>
-        <div style="font-size: 1.5em; margin-bottom: 20px; color: #388e3c; text-align: center;">
-          ${feedback}
-        </div>
-        <div style="font-size: 1.3em; margin-bottom: 18px; text-align: center;">
-          ${T.completedTasks.replace("{count}", TASK_COUNT)}
-        </div>
-        <div style="display: flex; gap: 24px; margin-top: 32px;">
-          <button id="download-results-btn" style="
-            padding: 14px 32px;
-            font-size: 1.1em;
-            background: #0077ff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-          ">${T.downloadResultsBtn}</button>
-          <button id="upload-results-btn" style="
-            padding: 14px 32px;
-            font-size: 1.1em;
-            background: #43a047;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-          ">${T.uploadResultsBtn}</button>
-          <button id="more-tests-btn" style="
-            padding: 14px 32px;
-            font-size: 1.1em;
-            background: #0077ff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-          ">${T.moreTestsBtn}</button>
-        </div>
-      </div>
-    `;
+  <div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 45vh;
+    width: 100%;
+  ">
+    <div style="
+      font-size: 3.2em;
+      font-weight: bold;
+      color: #1976d2;
+      margin-bottom: 18px;
+      text-align: center;
+      line-height: 1.2;
+    ">
+      ${T.yourPerformance}<br>
+      <span style="font-size:1.2em;">${T.correctCount.replace("{correct}", correct).replace("{total}", total.length)}</span>
+    </div>
+    <div style="font-size: 1.5em; margin-bottom: 20px; color: #388e3c; text-align: center;">
+      ${feedback}
+    </div>
+    <div style="font-size: 1.3em; margin-bottom: 18px; text-align: center;">
+      ${T.completedTasks.replace("{count}", TASK_COUNT)}
+    </div>
+    <div style="margin: 24px 0 12px 0; width: 100%; max-width: 480px;">
+      <label for="user-feedback" style="font-size:1.1em; color:#1976d2; font-weight:600;">
+        📝 Your feedback (optional):
+      </label>
+      <textarea id="user-feedback" rows="3" style="width:100%; margin-top:8px; border-radius:8px; border:1px solid #bdbdbd; padding:8px; font-size:1em; resize:vertical;"></textarea>
+    </div>
+    <div style="display: flex; gap: 24px; margin-top: 32px;">
+      <button id="download-results-btn" style="padding: 14px 32px; font-size: 1.1em; background: #0077ff; color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+        ${T.downloadResultsBtn}
+      </button>
+      <button id="upload-results-btn" style="padding: 14px 32px; font-size: 1.1em; background: #43a047; color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+        ${T.uploadResultsBtn}
+      </button>
+      <button id="more-tests-btn" style="padding: 14px 32px; font-size: 1.1em; background: #0077ff; color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+        ${T.moreTestsBtn}
+      </button>
+    </div>
+  </div>
+`;
     const resultTable = createResultTable(taskResults);
     resultDiv.style.display = "block";
     resultDiv.innerHTML = resultSummary;
@@ -711,9 +698,11 @@ submitBtn.onclick = () => {
     const uploadResultsBtn = document.getElementById("upload-results-btn");
     if (uploadResultsBtn) {
       uploadResultsBtn.onclick = () => {
+        const feedbackText = document.getElementById('user-feedback')?.value || "";
         const output = {
           principle: PRINCIPLE,
-          results: taskResults
+          results: taskResults,
+          feedback: feedbackText
         };
         const now = new Date();
         const pad = n => n.toString().padStart(2, '0');
