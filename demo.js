@@ -92,36 +92,9 @@ function updateTaskIdDisplay(taskId) {
 function displayDemoTask(task) {
   updateTaskIdDisplay(task.id);
 
-  // 🟢 DEBUG: Print all image URLs at the top of the page
-  // let debugDiv = document.getElementById("debug-image-urls");
-  // if (!debugDiv) {
-  //   debugDiv = document.createElement("div");
-  //   debugDiv.id = "debug-image-urls";
-  //   debugDiv.style.fontSize = "0.9em";
-  //   debugDiv.style.textAlign = "left";
-  //   debugDiv.style.background = "#fffbe7";
-  //   debugDiv.style.border = "1px solid #ffe082";
-  //   debugDiv.style.padding = "10px";
-  //   debugDiv.style.marginBottom = "12px";
-  //   debugDiv.style.maxHeight = "200px";
-  //   debugDiv.style.overflowY = "auto";
-  //   document.body.insertBefore(debugDiv, document.body.firstChild.nextSibling);
-  // }
-  // const allUrls = [
-  //   ...task.trainPos.map(img => img.url),
-  //   ...task.trainNeg.map(img => img.url),
-  //   ...task.testImages.map(img => img.url)
-  // ];
-  // debugDiv.innerHTML = `<strong>Image URLs for this task:</strong><br><pre style="white-space:pre-wrap;">${allUrls.join('\n')}</pre>`;
-
-  const grid = document.getElementById("image-grid");
-  grid.innerHTML = "";
-
-  // Training images
-  const trainLabel = document.createElement("h3");
-  trainLabel.innerText = "Training Images";
-  grid.appendChild(trainLabel);
-
+  // Clear and render training images
+  const trainingGrid = document.getElementById("training-image-grid");
+  trainingGrid.innerHTML = "";
   const trainRow = document.createElement("div");
   trainRow.className = "image-row";
   task.trainPos.forEach(({ id, url }) => {
@@ -138,13 +111,11 @@ function displayDemoTask(task) {
     img.className = "static-image thumb train-negative";
     trainRow.appendChild(img);
   });
-  grid.appendChild(trainRow);
+  trainingGrid.appendChild(trainRow);
 
-  // Test images with ground truth and colored borders
-  const testLabel = document.createElement("h3");
-  testLabel.innerText = "Test Images (✔ = Correct Positive)";
-  grid.appendChild(testLabel);
-
+  // Clear and render test images
+  const testGrid = document.getElementById("image-grid");
+  testGrid.innerHTML = "";
   const testRow = document.createElement("div");
   testRow.className = "image-row";
   task.testImages.forEach(({ id, url, isPositive }) => {
@@ -157,7 +128,7 @@ function displayDemoTask(task) {
       (isPositive ? " ground-truth" : "");
     testRow.appendChild(img);
   });
-  grid.appendChild(testRow);
+  testGrid.appendChild(testRow);
 }
 document.addEventListener("DOMContentLoaded", async () => {
   demoPairs = await generateDemoPairs(TASK_COUNT);

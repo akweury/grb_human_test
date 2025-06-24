@@ -37,20 +37,33 @@
       pointer-events: none;
       z-index: 20;
     }
+
+    .section-label {
+      font-size: 1.15em;
+      font-weight: 600;
+      margin: 18px 0 8px 0;
+      color: #234;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
   </style>
 </head>
 
 <body>
   <div id="lang-select-placeholder" style="position: absolute; top: 24px; right: 32px;"></div>
-  <h1>Gestalt Benchmark – Demo</h1>
+  <h1 id="demo-title">Gestalt Benchmark – Demo</h1>
   <div id="demo-description" class="demo-description" style="font-size: 16px; line-height: 1.6;"></div>
 
-  <div id="task-id" style="font-size: 1.2em; font-weight: bold; margin-bottom: 16px;"></div>
+  <!-- <div id="task-id" style="font-size: 1.2em; font-weight: bold; margin-bottom: 16px;"></div> -->
 
   <div id="progress-bar-container">
     <div id="progress-bar"></div>
   </div>
 
+  <div id="training-label" class="section-label">Training Images</div>
+  <div id="training-image-grid"></div>
+
+  <div id="test-label" class="section-label">Test Images</div>
   <div id="image-grid"></div>
 
   <div style="display: flex; gap: 20px; justify-content: center; margin-top: 24px;">
@@ -66,25 +79,33 @@
       .then(response => response.text())
       .then(html => {
         document.getElementById('lang-select-placeholder').innerHTML = html;
-        renderDemoDescription();
+        renderDemoLang();
       });
 
-    // Render the demo description based on current language
-    function renderDemoDescription() {
+    // Render all demo page language-dependent elements
+    function renderDemoLang() {
       const lang = localStorage.getItem('lang') || 'en';
-      const translationsObj = typeof translations !== 'undefined' ? translations : {};
-      const desc = translationsObj[lang]?.["demo-description"] || translationsObj['en']?.["demo-description"] || '';
-      document.getElementById('demo-description').innerHTML = desc;
+      const t = typeof translations !== 'undefined' ? translations[lang] || translations['en'] : {};
+      // Demo title
+      document.getElementById('demo-title').textContent = t["demo-title"] || "Gestalt Benchmark – Demo";
+      // Demo description
+      document.getElementById('demo-description').innerHTML = t["demo-description"] || "";
+      // Section labels
+      document.getElementById('training-label').textContent = t["training-label"] || "Training Images";
+      document.getElementById('test-label').textContent = t["test-label"] || "Test Images";
+      // Buttons
+      document.getElementById('submit-button').textContent = t["demo-next-btn"] || "Next Demo Task";
+      document.getElementById('ready-btn').textContent = t["ready-btn"] || "Ready to Go";
     }
 
     // Listen for language changes
-    window.addEventListener('languageChanged', renderDemoDescription);
+    window.addEventListener('languageChanged', renderDemoLang);
 
     // Initial render in case lang-select is already set
     if (document.readyState === "complete" || document.readyState === "interactive") {
-      setTimeout(renderDemoDescription, 0);
+      setTimeout(renderDemoLang, 0);
     } else {
-      document.addEventListener("DOMContentLoaded", renderDemoDescription);
+      document.addEventListener("DOMContentLoaded", renderDemoLang);
     }
   </script>
 </body>

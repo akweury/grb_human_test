@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestalt Human Evaluation</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Google Fonts for a cool title font -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
   <style>
     .corner-title {
       position: fixed;
@@ -25,38 +27,74 @@
       line-height: 1.1;
       transition: opacity 0.3s;
     }
-    #principle-title {
-      font-size: 2em;
-      font-weight: bold;
-      margin-bottom: 24px;
-      color: #1976d2;
-      letter-spacing: 0.03em;
-      text-shadow: 0 2px 12px #e3f2fd;
-      text-align: center;
-      font-family: 'Montserrat', Arial, sans-serif;
-    }
-    @media (max-width: 600px) {
-      .corner-title {
-        font-size: 1.1em;
-        left: 10px;
-        bottom: 10px;
-        top: unset;
-      }
-      #principle-title {
-        font-size: 1.3em;
-      }
-    }
+
+#principle-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #012f5c;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 12px #e3f2fd;
+  text-align: left;           /* Align text to the left */
+  font-family: 'Montserrat', Arial, sans-serif;
+  max-width: 1200px;
+  margin-left: 0;             /* Align container to the left */
+  margin-right: auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+  background: none;           /* No background */
+}
+@media (max-width: 600px) {
+  #principle-title {
+    font-size: 1.3em;
+    max-width: 98vw;
+    padding: 0 6px;
+  }
+}
   </style>
 </head>
+
 <body>
-  <div class="corner-title">Gestalt Benchmark – Human Evaluation</div>
+  <!-- <div id="lang-select-placeholder" style="position:fixed;top:16px;right:16px;z-index:9999;"></div> -->
+  <!-- <div class="corner-title">Gestalt Benchmark – Human Evaluation</div> -->
   <div id="principle-title"></div>
   <div id="progress-bar-container">
     <div id="progress-bar"></div>
   </div>
+  <div id="training-label" style="margin: 16px 0 4px 0; font-weight: bold;"></div>
+  <div id="test-label" style="margin: 20px 0 4px 0; font-weight: bold;"></div>
   <div id="image-grid"></div>
-  <button id="submit-button">Next Task</button>
+  <div class="center-btn-row">
+    <button id="submit-button">Next Task</button>
+  </div>
   <div id="result"></div>
+  <script src="lang.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Load the language select component
+    // fetch('components/lang-select.html')
+    //   .then(response => response.text())
+    //   .then(html => {
+    //     document.getElementById('lang-select-placeholder').innerHTML = html;
+    //   });
+
+    // Render all task page language-dependent elements
+    function renderTaskLang() {
+      const lang = localStorage.getItem('lang') || (navigator.language || "en").slice(0, 2);
+      const t = typeof translations !== "undefined" ? translations[lang] || translations['en'] : {};
+      const corner = document.querySelector('.corner-title');
+      if (corner) corner.textContent = t["task-corner-title"] || "Gestalt Benchmark – Human Evaluation";
+      const title = document.getElementById('principle-title');
+      if (title) title.textContent = t["task-title"] || "Gestalt Benchmark – Main Task";
+      const submit = document.getElementById('submit-button');
+      if (submit) submit.textContent = t["nextTask"] || "Next Task";
+      // Add more elements as needed
+    }
+    window.renderTaskLang = renderTaskLang;
+    window.addEventListener('languageChanged', renderTaskLang);
+    document.addEventListener("DOMContentLoaded", renderTaskLang);
+  </script>
 </body>
+
 </html>
