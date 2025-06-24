@@ -502,5 +502,36 @@ button:hover {
     gap: 12px !important;
     width: 100% !important;
   }
+    .citation-container {
+    max-width: 98vw !important;
+    width: 100% !important;
+    margin: 24px auto 0 auto !important;
+    padding: 12px 4vw !important;
+    box-sizing: border-box !important;
+    border-radius: 10px;
+    background: #f5f7fa;
+    font-size: 0.7em;
+    word-break: break-word;
+  }
+  #citation-title {
+    font-size: 1em !important;
+    margin-bottom: 8px !important;
+    text-align: left !important;
+  }
+  #citation-authors {
+    font-size: 0.8em !important;
+    margin-bottom: 8px !important;
+    text-align: left !important;
+    word-break: break-word;
+  }
+  #citation-bib {
+    font-size: 0.7em !important;
+    padding: 8px 0 !important;
+    background: #f0f4ff;
+    border-radius: 6px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
 
 }
