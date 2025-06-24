@@ -193,21 +193,37 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   });
   grid.appendChild(testRow);
 
+
+  // // --- Add horizontal split line before feedback buttons ---
+  // // Remove old split line if any
+  // const oldSplitLine = document.getElementById("hardness-split-line");
+  // if (oldSplitLine) oldSplitLine.remove();
+
+  // // Create and style the split line (now inside the grid, not fixed)
+  // const splitLine = document.createElement("hr");
+  // splitLine.id = "hardness-split-line";
+  // splitLine.style.width = "100%";
+  // splitLine.style.border = "none";
+  // splitLine.style.borderTop = "2px solid #bbb";
+  // splitLine.style.margin = "32px 0 24px 0";
+  // grid.appendChild(splitLine);
+
+
   // Remove old hardness feedback buttons if any
   const oldHardnessDiv = document.getElementById("hardness-feedback");
   if (oldHardnessDiv) oldHardnessDiv.remove();
 
-  // Add hardness feedback buttons at the bottom right
+
+  // Add hardness feedback panel below the split line, inside the grid
   const hardnessDiv = document.createElement("div");
   hardnessDiv.id = "hardness-feedback";
-  hardnessDiv.style.position = "fixed";
-  hardnessDiv.style.right = "40px";
-  hardnessDiv.style.bottom = "40px";
   hardnessDiv.style.zIndex = "2000";
   hardnessDiv.style.display = "flex";
   hardnessDiv.style.flexDirection = "column";
-  hardnessDiv.style.alignItems = "flex-end";
-  hardnessDiv.style.gap = "18px";
+  hardnessDiv.style.alignItems = "flex-end"; // You can change to "center" or "flex-start" if you want
+  hardnessDiv.style.gap = "10px";
+  hardnessDiv.style.margin = "8px 0 0 0"; // Small gap above the panel
+
 
   // Add instruction text above the buttons
   const hardnessText = document.createElement("div");
@@ -215,8 +231,8 @@ function displayImages({ trainPos, trainNeg, testImages }) {
   hardnessText.style.fontSize = "1.3em";
   hardnessText.style.fontWeight = "500";
   hardnessText.style.color = "#333";
-  hardnessText.style.background = "rgba(255,255,255,0.95)";
-  hardnessText.style.padding = "8px 18px";
+  hardnessText.style.background = "rgba(255,255,255,0.0)";
+  hardnessText.style.padding = "8px 0";
   hardnessText.style.borderRadius = "8px";
   hardnessText.style.marginBottom = "6px";
   hardnessText.style.textAlign = "right";
@@ -394,11 +410,6 @@ submitBtn.onclick = () => {
         <div style="font-size: 1.3em; margin-bottom: 18px; text-align: center;">
           You completed ${TASK_COUNT} tasks.
         </div>
-        <div style="font-size: 1.1em; margin-top: 10px; text-align: center;">
-          <b>To submit your results:</b><br>
-          1. Click <b>Download Results</b> to save your answers as a JSON file.<br>
-          2. Go to <a href="https://huggingface.co/spaces/akweury/elvis_human_test_result" target="_blank">the result upload page</a> and upload your file.
-        </div>
         <div style="display: flex; gap: 24px; margin-top: 32px;">
           <button id="download-results-btn" style="
             padding: 14px 32px;
@@ -462,7 +473,7 @@ submitBtn.onclick = () => {
     const moreTestsBtn = document.getElementById("more-tests-btn");
     if (moreTestsBtn) {
       moreTestsBtn.onclick = () => {
-        window.location.href = "intro.html";
+        window.location.href = "index.html";
       };
     }
     return;

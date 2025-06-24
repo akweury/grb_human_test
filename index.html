@@ -29,22 +29,45 @@
 
     .intro-title {
       font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 2.7em;
-      margin-bottom: 18px;
-      font-weight: 700;
-      color: #1976d2;
-      letter-spacing: 0.03em;
-      text-shadow: 0 2px 16px #e3f2fd;
+      font-size: 3.2em;
+      margin-bottom: 22px;
+      font-weight: 900;
+      color: #000000;
+      letter-spacing: 0.0em;
+      text-shadow: 0 4px 24px #e3f2fd, 0 1px 0 #fff;
       text-align: center;
+      margin-top: 90px;
+      line-height: 1.1;
+    }
+
+    .intro-subtitle-box {
+      background: rgba(30, 34, 40, 0.92);
+      border: 2px solid #00e676;
+      border-radius: 12px;
+      padding: 22px 32px;
+      margin-bottom: 38px;
+      max-width: 700px;
+      box-shadow: 0 2px 16px #00e67633;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .intro-subtitle {
-      font-size: 1.25em;
-      color: #444;
-      margin-bottom: 32px;
-      text-align: center;
-      max-width: 600px;
+      margin: 0;
+      font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 1.13em;
+      color: #e0f2f1;
+      text-align: left;
       font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .terminal-line {
+      display: block;
+      padding-left: 0.2em;
     }
 
     .intro-buttons {
@@ -91,7 +114,9 @@
       color: #fff;
       cursor: pointer;
       font-family: 'Montserrat', Arial, sans-serif;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-size: 1.15em;
       box-shadow: 0 2px 8px #0077ff22;
       transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
     }
@@ -103,34 +128,39 @@
     }
 
     .citation-container {
-      width: 100%;
-      max-width: 900px;
-      margin: 48px auto 18px auto;
-      font-size: 1em;
-      color: #444;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1.08em;
+      color: #374151;
       background: #f9f9f9cc;
       border-radius: 12px;
-      padding: 28px 24px 18px 24px;
+      padding: 32px 28px 20px 28px;
       box-shadow: 0 2px 18px #b3c6e3;
       text-align: center;
+      line-height: 1.4;
     }
 
     .citation-container h3 {
-      margin-top: 0;
       font-family: 'Montserrat', Arial, sans-serif;
-      font-weight: 700;
-      color: #1976d2;
-      letter-spacing: 0.02em;
+      font-weight: 800;
+      font-size: 1.4em;
+      color: #000000;
+      letter-spacing: 0.01em;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 5px;
     }
 
     .citation-container pre {
+      font-family: 'Roboto Mono', 'Menlo', 'Monaco', monospace;
       background: #f4f4f4;
-      border-radius: 6px;
-      padding: 12px;
-      margin-top: 16px;
-      font-size: 0.97em;
+      border-radius: 12px;
+      padding: 4px;
+      margin-top: 10px;
+      font-size: 0.8em;
       overflow-x: auto;
       text-align: left;
+      color: #222;
+      line-height: 1.4;
     }
 
     @media (max-width: 700px) {
@@ -156,11 +186,17 @@
 
 <body>
   <div class="intro-container">
-    <div class="intro-title">Gestalt Benchmark Human Evaluation</div>
-    <div class="intro-subtitle">
-      Welcome! This portal lets you participate in our study on Gestalt principles in visual perception.<br>
-      Please try the demo first, then select a principle to start the test. Your contribution is valuable for our
-      research!
+    <div class="intro-title">
+  <span class="elvis-name">ELVIS</span>
+</div>
+<div class="elvis-tagline">
+  <h3>The Gestalt Vision Benchmark</h3>
+</div>
+    <div class="intro-subtitle-box">
+      <div class="intro-subtitle">
+        <span class="terminal-line">&gt; 👋 Welcome! This portal lets you participate in our study on Gestalt principles in visual perception. 🧩</span>
+        <span class="terminal-line">&gt; 🌟 Please try the demo first, then select a principle to start the test. Your contribution is valuable for our research! 💡🦄</span>
+      </div>
     </div>
     <div class="intro-buttons">
       <button class="demo-btn" onclick="window.location.href='demo.html'">
